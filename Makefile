@@ -10,3 +10,9 @@
 #                                                                              #
 # **************************************************************************** #
 
+CC = cc
+CFLAGS = -Wall -Werror -Wextra
+NAME = push_swap
+#LIBFT_DIR = libft
+LIBFT = libft/libft.a
+FT_PRINTF = ft_printf/libftprintf.a
