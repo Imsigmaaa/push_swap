@@ -6,15 +6,15 @@
 #    By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/19 16:00:15 by xingchen          #+#    #+#              #
-#    Updated: 2026/02/25 13:26:50 by xingchen         ###   ########.fr        #
+#    Updated: 2026/02/26 15:14:12 by xingchen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -Ilibft -Ift_print
+CFLAGS = -Wall -Werror -Wextra -Ilibft -Ift_printf
 NAME = push_swap
 
-SRC = main.c
+SRC = main.c ft_parsing.c change_to_list.c
 OBJS = $(SRC:.c=.o)
 #LIBFT_DIR = libft
 LIBFT_DIR = libft
