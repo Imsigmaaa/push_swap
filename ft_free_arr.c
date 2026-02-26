@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_free_arr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/20 12:45:35 by xingchen          #+#    #+#             */
-/*   Updated: 2026/02/26 23:46:38 by xingchen         ###   ########.fr       */
+/*   Created: 2026/02/26 22:44:34 by xingchen          #+#    #+#             */
+/*   Updated: 2026/02/26 23:05:27 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "push_swap.h"
 
-#include <unistd.h>
-#include <stdio.h> //记得删掉
-#include <stdlib.h>
-
-typedef struct s_stack
+void	ft_free_arr(char **arr)
 {
-    int             value;
-    struct s_stack  *next;
-}   t_stack;
+	int	i;
 
-char **ft_parsing(int ac, char **av);
-t_stack *change_to_list(char **arr);
-void ft_free_arr(char **arr);
-t_stack *creat_end_node(t_stack *head);
-int push_sa(t_stack **stack_a,t_stack **stack_b);
-
-#endif
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i ++;
+	}	
+	free(arr);
+}

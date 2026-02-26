@@ -6,17 +6,16 @@
 #    By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/19 16:00:15 by xingchen          #+#    #+#              #
-#    Updated: 2026/02/26 15:14:12 by xingchen         ###   ########.fr        #
+#    Updated: 2026/02/26 23:01:42 by xingchen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -Ilibft -Ift_printf
+CFLAGS = -Wall -Werror -Wextra -Ilibft -Ift_printf 
 NAME = push_swap
-
-SRC = main.c ft_parsing.c change_to_list.c
+SRC = main.c ft_parsing.c change_to_list.c ft_free_arr.c push_sa.c
 OBJS = $(SRC:.c=.o)
-#LIBFT_DIR = libft
+#LIBFT_DIR = libfts
 LIBFT_DIR = libft
 FT_PRINTF_DIR = ft_printf
 LIBFT = libft/libft.a
@@ -31,8 +30,8 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(FT_PRINTF) -o $(NAME)
 #任何.o文件都可以用由同名文件.c编译得到
 #（$<）第一个依赖文件（.c）   （$@）目标文件（.o）
-%o: %c
-	$(CC) $(CFLAG) -c $< -o $@
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 clean:
 #进入到自己的文件夹执行自己的clean
 	$(MAKE) -C $(LIBFT_DIR) clean

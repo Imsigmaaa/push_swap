@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 13:22:02 by xingchen          #+#    #+#             */
-/*   Updated: 2026/02/26 17:42:29 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/02/26 21:54:44 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ void	ft_stackadd_back(t_stack **lst, t_stack *new)
 {
 	t_stack	*temp;
 
-	if (!lst || !new)
-		return ;
+	temp = *lst;
 	if (*lst == NULL)
 	{
 		*lst = new;
@@ -28,6 +27,7 @@ void	ft_stackadd_back(t_stack **lst, t_stack *new)
 	while (temp->next)
 		temp = temp->next;
 	temp->next = new;
+	
 }
 
 t_stack	*ft_stacknew(int val)
@@ -46,7 +46,7 @@ t_stack *change_to_list(char **arr)
 {
 	t_stack *node = NULL;
 	t_stack *head;
-	t_stack *temp;
+	//t_stack *temp;
 	
 	int i;
 	i = 0;
@@ -59,20 +59,15 @@ t_stack *change_to_list(char **arr)
 			free(head);
 			return NULL;
 		}
-		if(!head)
-		{
-			head = node;
-			temp = head;
-			
-		}
-		else
-			{
-				temp->next = node;
-				temp = temp->next;
-			}
-		node = node->next;
+		ft_stackadd_back(&head,node);
 		i ++;
 	}
-	free(node);
+	t_stack *temp = head;
+	while (temp)
+	{
+		printf("%d\n", temp->value);
+		temp = temp->next;
+	}
+	
 	return(head);
 }

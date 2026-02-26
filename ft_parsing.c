@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin_with_space.c                            :+:      :+:    :+:   */
+/*   ft_parsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 11:24:06 by xingchen          #+#    #+#             */
-/*   Updated: 2026/02/26 13:12:24 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/02/26 22:51:16 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 
 long	ft_atol(char *nptr)
-{ 	
+{
 	long	i;
 	long	result;
 	long	sign;
@@ -116,27 +116,31 @@ char	*ft_strjoin_with_space(char *s1, char *s2, char c)
 	return (dup);
 }
 
-char **ft_parsing(int ac, char **av)
+char	**ft_parsing(int ac, char **av)
 {
 	int		i;
 	char	*join;
 	char	**arr;
-	
+
 	join = NULL;
 	arr = NULL;
 	i = 1;
 	while (i < ac)//组合所有的元素、重新拆分
-	{	join = ft_strjoin_with_space(join, av[i], ' ');
+	{
+		join = ft_strjoin_with_space(join, av[i], ' ');
 		if (!join)
 		{
 			free(join);
-			return NULL;
+			return (NULL);
 		}
-		 i ++;
+		i ++;
 	}
 	arr = ft_split(join, 32);
-	if(!arr || is_error_digitdoule_and_extra(arr)|| is_error_digital(arr))
-		return NULL;
+	if (!arr || is_error_digitdoule_and_extra(arr) || is_error_digital(arr))
+	{
+		ft_free_arr(arr);
+		return (NULL);
+	}
 	free(join);
 	return (arr);
 }

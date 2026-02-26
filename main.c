@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:23:17 by xingchen          #+#    #+#             */
-/*   Updated: 2026/02/26 17:17:42 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/02/26 23:47:27 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,28 @@
 #include "libft.h"
 #include "ft_printf.h"
 
+void	ft_stackclear(t_stack **lst)
+{
+	t_stack	*temp;
+	t_stack	*next;
+
+	if (!lst)
+		return ;
+	temp = *lst;
+	while (temp)
+	{
+		next = temp->next;
+		free(temp);
+		temp = next;
+	}
+	*lst = NULL;
+}
+
 int	main(int argc, char **argv)
 {
-	int		i;
 	char	**arr;
-	t_stack	*head;
+	t_stack	*stack_a;
+	t_stack	*stack_b;
 
 	arr = NULL;
 	if (argc == 1 || (argc == 2 && !argv[1]))
@@ -26,32 +43,35 @@ int	main(int argc, char **argv)
 	if (argc == 2 && argv[1][0] == '\0')
 		return (write(2, "Error\n", 6));
 	arr = ft_parsing(argc, argv);
-	if(!arr)
+	if (!arr)
+		return (0);
+	stack_a = NULL;
+	stack_b = NULL;
+	stack_a = change_to_list(arr);
+	if (!stack_a)
 	{
-		free(arr);
-		return 0;
+		free(stack_a);
+		return (0);
 	}
-	head = NULL;
-	printf("%p\n", head);
-	head = change_to_list(arr);
-	if(!head)
+	t_stack *end=stack_a;
+	end = creat_end_node(stack_a);
+	printf("ww:%d\n",end->value);
+	int a = push_sa(&stack_a,&stack_b);
+	printf("a=%d\n",a);
+	while (stack_b)
 	{
-		free(head);
-		return 0;
+		printf("stackb= %d\n",stack_a->value);
+		stack_b = stack_b->next;
 	}
-	t_stack *test;
-	test = head;
-	while (test)
+	while (stack_a)
 	{
-		printf("33333:%d\n", test->value);
-		test = test->next;
+		printf("stacka= %d\n",stack_a->value);
+		stack_a = stack_a->next;
 	}
-	free(test);
-	free(head);
-	i = 0;
-	while(arr[i])
-		free(arr[i++]);
-	free(arr);
+	
+	
+	ft_stackclear(&stack_a);
+	ft_free_arr(arr);
 	return (0);
 }
 	/*
@@ -62,12 +82,7 @@ int	main(int argc, char **argv)
 		i ++;
 	}	
 	*/
-		
-		
-		
-		
-		
-		
+			
 		/*if(split[i][0] == '0')
 			i ++;
 		else
@@ -131,8 +146,8 @@ if (argv[1][i] != 32 && argv[1][i])
 		free(dup[i]);
 		i ++;
 	}
-	free(dup);*/
-	/*while (argv[1][i])
+	free(dup);
+	while (argv[1][i])
 	{
 		
 	}
