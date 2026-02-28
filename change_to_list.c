@@ -6,14 +6,14 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 13:22:02 by xingchen          #+#    #+#             */
-/*   Updated: 2026/02/26 21:54:44 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/02/28 00:35:29 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "libft.h"
 
-void	ft_stackadd_back(t_stack **lst, t_stack *new)
+void	stackadd_back(t_stack **lst, t_stack *new)
 {
 	t_stack	*temp;
 
@@ -30,7 +30,7 @@ void	ft_stackadd_back(t_stack **lst, t_stack *new)
 	
 }
 
-t_stack	*ft_stacknew(int val)
+t_stack	*stacknew(int val)
 {
 	t_stack	*new;
 
@@ -53,7 +53,7 @@ t_stack *change_to_list(char **arr)
 	head = NULL;
 	while (arr[i])
 	{
-		node = ft_stacknew(ft_atoi(arr[i]));
+		node = stacknew(ft_atoi(arr[i]));
 		if (!node)
 		{
 			free(head);

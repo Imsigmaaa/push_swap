@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:23:17 by xingchen          #+#    #+#             */
-/*   Updated: 2026/02/26 23:47:27 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/02/28 00:17:35 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,24 +53,8 @@ int	main(int argc, char **argv)
 		free(stack_a);
 		return (0);
 	}
-	t_stack *end=stack_a;
-	end = creat_end_node(stack_a);
-	printf("ww:%d\n",end->value);
-	int a = push_sa(&stack_a,&stack_b);
-	printf("a=%d\n",a);
-	while (stack_b)
-	{
-		printf("stackb= %d\n",stack_a->value);
-		stack_b = stack_b->next;
-	}
-	while (stack_a)
-	{
-		printf("stacka= %d\n",stack_a->value);
-		stack_a = stack_a->next;
-	}
-	
-	
 	ft_stackclear(&stack_a);
+	ft_stackclear(&stack_b);
 	ft_free_arr(arr);
 	return (0);
 }
