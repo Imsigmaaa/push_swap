@@ -6,14 +6,27 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 13:22:02 by xingchen          #+#    #+#             */
-/*   Updated: 2026/02/28 00:35:29 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/03 13:07:54 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "libft.h"
 
-void	stackadd_back(t_stack **lst, t_stack *new)
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	i;
+
+	i = 0;
+	while ((s1[i] || s2[i]))
+	{
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i ++;
+	}
+	return (0);
+}
+
+static void	ft_stackadd_back(t_stack **lst, t_stack *new)
 {
 	t_stack	*temp;
 
@@ -27,10 +40,9 @@ void	stackadd_back(t_stack **lst, t_stack *new)
 	while (temp->next)
 		temp = temp->next;
 	temp->next = new;
-	
 }
 
-t_stack	*stacknew(int val)
+t_stack	*stacknew(int val, int index)
 {
 	t_stack	*new;
 
@@ -38,36 +50,34 @@ t_stack	*stacknew(int val)
 	if (!new)
 		return (NULL);
 	new->value = val;
+	new->index = index;
+	new->post = 0;
 	new->next = NULL;
 	return (new);
 }
 
-t_stack *change_to_list(char **arr)
+t_stack	*change_to_list(char **arr, int *str)
 {
-	t_stack *node = NULL;
-	t_stack *head;
-	//t_stack *temp;
-	
-	int i;
+	t_stack	*node;
+	t_stack	*head;
+	int		index;
+	int		i;
+	int		a;
+
 	i = 0;
+	node = NULL;
 	head = NULL;
 	while (arr[i])
 	{
-		node = stacknew(ft_atoi(arr[i]));
+		index = 0;
+		a = ft_atoi(arr[i]);
+		while (str[index] && a != str[index])
+			index ++;
+		node = stacknew(ft_atoi(arr[i]), index);
 		if (!node)
-		{
-			free(head);
-			return NULL;
-		}
-		ft_stackadd_back(&head,node);
+			return (free(head), NULL);
+		ft_stackadd_back(&head, node);
 		i ++;
 	}
-	t_stack *temp = head;
-	while (temp)
-	{
-		printf("%d\n", temp->value);
-		temp = temp->next;
-	}
-	
-	return(head);
+	return (head);
 }

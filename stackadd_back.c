@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 00:37:30 by xingchen          #+#    #+#             */
-/*   Updated: 2026/02/28 00:39:52 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/03 13:10:37 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,4 @@ void	stackadd_back(t_stack **stack, t_stack *new)
 	while (temp->next)
 		temp = temp->next;
 	temp->next = new;
-	
 }

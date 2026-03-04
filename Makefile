@@ -6,14 +6,14 @@
 #    By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/19 16:00:15 by xingchen          #+#    #+#              #
-#    Updated: 2026/02/28 16:51:43 by xingchen         ###   ########.fr        #
+#    Updated: 2026/03/04 14:47:52 by xingchen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -Ilibft -Ift_printf 
 NAME = push_swap
-SRC = main.c ft_parsing.c change_to_list.c ft_free_arr.c push_ab.c stackadd_front.c stackadd_back.c stacklast.c stackswap.c swap_ab.c rotate_ab.c reverse_rotate_ab.c
+SRC = main.c find_best.c sort_stack.c ft_parsing.c change_to_list.c ft_free_arr.c push_ab.c stackadd_front.c stackadd_back.c stacklast.c stackswap.c swap_ab.c rotate_ab.c reverse_rotate_ab.c
 OBJS = $(SRC:.c=.o)
 #LIBFT_DIR = libfts
 LIBFT_DIR = libft

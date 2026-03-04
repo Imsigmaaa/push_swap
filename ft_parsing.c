@@ -6,12 +6,11 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 11:24:06 by xingchen          #+#    #+#             */
-/*   Updated: 2026/02/26 22:51:16 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/03 14:35:43 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "libft.h"
 
 long	ft_atol(char *nptr)
 {
@@ -125,22 +124,20 @@ char	**ft_parsing(int ac, char **av)
 	join = NULL;
 	arr = NULL;
 	i = 1;
-	while (i < ac)//组合所有的元素、重新拆分
+	if (ac == 2 && av[1][0] == '\0')
+	{
+		write(2, "Error\n", 6);
+		return (NULL);
+	}
+	while (i < ac) //组合所有的元素、重新拆分
 	{
 		join = ft_strjoin_with_space(join, av[i], ' ');
 		if (!join)
-		{
-			free(join);
-			return (NULL);
-		}
+			return (free(join), NULL);
 		i ++;
 	}
 	arr = ft_split(join, 32);
 	if (!arr || is_error_digitdoule_and_extra(arr) || is_error_digital(arr))
-	{
-		ft_free_arr(arr);
-		return (NULL);
-	}
-	free(join);
-	return (arr);
+		return (ft_free_arr(arr), NULL);
+	return (free(join),arr);
 }
