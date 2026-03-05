@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:56:36 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/05 18:14:52 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/05 19:02:49 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_stack	*find_littlebigger_value(int index, t_stack **stack)
 	temp = *stack;
 	while (temp)
 	{
-		if (index == temp->index - 1)
+		if (index == temp->index + 1)
 		{
 			ltlbig = temp;
 			return (ltlbig);

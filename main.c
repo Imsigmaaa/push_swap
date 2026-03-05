@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:23:17 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/05 17:29:03 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/05 19:16:12 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	main(int argc, char **argv)
 	if (!stack_a)
 		return (free(stack_a), free(str), 0);
 	int i = push_swap(&stack_a, &stack_b);
+	
 	printf("--------------main里的STACKA---------------\n");
 	ft_print_stack(stack_a);
 	printf("------------main里的STACKB------------------\n");

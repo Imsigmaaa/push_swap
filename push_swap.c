@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 21:04:46 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/05 18:30:54 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/05 19:00:42 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ int	push_swap(t_stack **st_a, t_stack **st_b)
 		recount_post(st_b);
 		printf("--------PUSH_SWAP每次重新计算位置stacka---------------------\n");
 		print_stack(st_a);
+		printf("--------PUSH_SWAP每次重新计算位置stackb--------------------\n");
+		print_stack(st_b);
 		tag_a = find_target_a(st_a, st_b);
 		tag_b = find_target_b(tag_a->index, st_b);
 		printf("--------PUSH_SWAP每次重新计算位置targeta---------------------\n");

@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 13:48:17 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/05 18:45:35 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/05 18:58:40 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	count_lesscost(int post_a, int post_b)
 	else if ( post_a == 0 || post_b == 0)
 		cost = post_a + post_b;
 	else if(post_a >= post_b)
-		cost = post_a - post_b;
+		cost = post_a;
 	else
-		cost = post_b - post_a;
+		cost = post_b;
 	return (cost);
 	
 }

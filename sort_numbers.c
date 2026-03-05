@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_stack.c                                       :+:      :+:    :+:   */
+/*   sort_numbers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 20:39:39 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/03 15:09:24 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/05 19:24:21 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,16 @@ int	*sort_numbers(char **arr, int *str)
 	if (!str)
 		return (NULL);
 	i = 0;
-	while (arr[i])
+	while (i < len)
 	{
 		str[i] = ft_atoi(arr[i]);
 		i ++;
 	}
+	
 	i = 0;
-	while (i < len)
+	while (i < len - 1)
 	{
-		if (i + 1 < len && (str[i] > str[i + 1]))
+		if ((str[i] > str[i + 1]))
 		{
 			ft_swap(&str[i], &str[i + 1]);
 			i = 0;
@@ -57,5 +58,12 @@ int	*sort_numbers(char **arr, int *str)
 		else
 			i ++;
 	}
+	i = 0; 
+	while (str[i])
+	{
+		printf("%d\n",str[i]);
+		i ++;
+	}
+	
 	return (str);
 }

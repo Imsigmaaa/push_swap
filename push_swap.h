@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:45:35 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/05 15:39:37 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/05 19:41:02 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ void	ft_print_stack(t_stack *stack);
 void	print_stack(t_stack **stack);
 t_stack	*find_biggest_value(t_stack **stack);
 void	recount_post(t_stack **stack);
+int	calcul_len(char **arr);
 
 #endif
