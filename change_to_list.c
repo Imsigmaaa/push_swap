@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 13:22:02 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/05 19:45:35 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/05 20:48:28 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,13 @@ t_stack	*change_to_list(char **arr, int *str)
 	int		a;
 
 	i = 0;
-	int len = calcul_len(arr);
 	node = NULL;
 	head = NULL;
 	while (arr[i])
 	{
 		index = 0;
 		a = ft_atoi(arr[i]);
-		while (index < len && a != str[index])
+		while (str[index] && a != str[index])
 			index ++;
 		node = stacknew(ft_atoi(arr[i]), index);
 		if (!node)

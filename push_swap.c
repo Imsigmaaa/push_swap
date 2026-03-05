@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 21:04:46 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/05 19:00:42 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/05 21:21:17 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,28 +71,35 @@ int	push_swap(t_stack **st_a, t_stack **st_b)
 	i = 0;
 	i += push_b(st_a,st_b);
 	i += push_b(st_a,st_b);
+	printf("-PUSH_SWAP开局位置stack_a-\n");
+	print_stack(st_a);
+	printf("--PUSH_SWAP开局位置stack_b--\n");
+	print_stack(st_b);
 	while (*st_a)
 	{
 		recount_post(st_a);
 		recount_post(st_b);
-		printf("--------PUSH_SWAP每次重新计算位置stacka---------------------\n");
+		printf("----PUSH_SWAP每次重新计算位置stack_a-----\n");
 		print_stack(st_a);
-		printf("--------PUSH_SWAP每次重新计算位置stackb--------------------\n");
+		printf("----PUSH_SWAP每次重新计算位置stack_b-----\n");
 		print_stack(st_b);
+		printf("--------PUSH_SWAP每次重新计算位置end-----\n");
 		tag_a = find_target_a(st_a, st_b);
 		tag_b = find_target_b(tag_a->index, st_b);
-		printf("--------PUSH_SWAP每次重新计算位置targeta---------------------\n");
+		printf("-----PUSH_SWAP每次重新计算位置target_a----\n");
 		ft_print_stack(tag_a);
-		printf("--------PUSH_SWAP每次重新计算位置targetb---------------------\n");
+		printf("-----PUSH_SWAP每次重新计算位置target_b----\n");
 		ft_print_stack(tag_b);
-		printf("--------PUSH_SWAPendddddddddddddd---------------------\n");
-		if (tag_a->post == 0 && tag_b->post == 0)
-			i += push_b(st_a, st_b);
-		else
-			i += print_ab(st_a, st_b, tag_a, tag_b);
+		printf("-----PUSH_SWAPendddddddddddddd---------\n");
+		/*if (tag_a->post == 0 && tag_b->post == 0)
+			i += push_b(st_a, st_b);*/
+		//else
+		i += print_ab(st_a, st_b, tag_a, tag_b);
 		i += push_b(st_a, st_b);
 	}
-	//i += sort_b(st_b);
+	i += sort_b(st_b);
+	while (*st_b)
+		i += push_a(st_a,st_b);
 	return (i);
 }
 

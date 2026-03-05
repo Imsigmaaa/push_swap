@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 13:48:17 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/05 18:58:40 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/05 21:56:00 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_stack	*find_target_a(t_stack **stack_a, t_stack **stack_b)
 	temp_a2 = (*stack_a)->next;
 	while (temp_a2)
 	{
-		//ft_print_stack(temp_a);
+		ft_print_stack(temp_a2);
 		cost_a2 = count_cost(temp_a2, stack_a, stack_b);
 		if (cost_a1 > cost_a2)
 		{
@@ -76,6 +76,6 @@ t_stack	*find_target_a(t_stack **stack_a, t_stack **stack_b)
 		ft_print_stack(target_a);*/
 	}
 	printf("--------find---------------------\n");
-	ft_print_stack(target_a);
+	//ft_print_stack(target_a);
 	return (target_a);
 }

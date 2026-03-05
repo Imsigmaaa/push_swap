@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 20:39:39 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/05 19:24:21 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/05 21:06:51 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,5 @@ int	*sort_numbers(char **arr, int *str)
 		else
 			i ++;
 	}
-	i = 0; 
-	while (str[i])
-	{
-		printf("%d\n",str[i]);
-		i ++;
-	}
-	
 	return (str);
 }

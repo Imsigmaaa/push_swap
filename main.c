@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:23:17 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/05 19:16:12 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/05 22:00:51 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void ft_print_stack(t_stack *stack)
 		printf("null\n");
 	while (temp)
 	{
-		printf("value=%d,index=%d\n",temp->value,temp->index);
+		printf("value=%d,index=%d, post =%d\n",temp->value,temp->index,temp->post);
 		temp = temp->next;
 	}
 }
@@ -66,11 +66,11 @@ int	main(int argc, char **argv)
 		return (free(stack_a), free(str), 0);
 	int i = push_swap(&stack_a, &stack_b);
 	
-	printf("--------------main里的STACKA---------------\n");
+	printf("-------main里的STACK_A------\n");
 	ft_print_stack(stack_a);
-	printf("------------main里的STACKB------------------\n");
+	printf("-----main里的STACK_B-------\n");
 	ft_print_stack(stack_b);
-	printf("------------------------------\n");
+	printf("-------------------------\n");
 	printf("%d\n",i);
 	ft_stackclear(&stack_a);
 	ft_stackclear(&stack_b);
