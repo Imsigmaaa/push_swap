@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 11:24:06 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/03 14:35:43 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/05 12:13:14 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,5 @@ char	**ft_parsing(int ac, char **av)
 	arr = ft_split(join, 32);
 	if (!arr || is_error_digitdoule_and_extra(arr) || is_error_digital(arr))
 		return (ft_free_arr(arr), NULL);
-	return (free(join),arr);
+	return (free(join), arr);
 }

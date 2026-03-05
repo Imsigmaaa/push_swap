@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stackswap.c                                        :+:      :+:    :+:   */
+/*   count_post.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/28 11:13:41 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/05 12:16:18 by xingchen         ###   ########.fr       */
+/*   Created: 2026/03/05 11:58:22 by xingchen          #+#    #+#             */
+/*   Updated: 2026/03/05 13:00:44 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	stackswap(t_stack **stack)
+int	count_post(t_stack **stack, t_stack *target)
 {
-	int	swap_value;
-	int	swap_index;
+	int	post;
+	int	len;
 
-	if (!*stack || !(*stack)->next)
-		return ;
-	swap_value = (*stack)->value;
-	swap_index = (*stack)->value;
-	(*stack)->value = (*stack)->next->value;
-	(*stack)->index = (*stack)->next->index;
-	(*stack)->next->value = swap_value;
-	(*stack)->next->index = swap_index;
+	len = count_len(stack);
+	post = len - target->post;
+	return (post);
 }

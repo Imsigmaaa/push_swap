@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 16:37:39 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/03 12:34:32 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/05 16:40:13 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	reverse_rotate_a(t_stack **stack_a)
 	while (end->next->next)
 		end = end->next;
 	node_a = end;
-	end->next = NULL;
 	node_a = node_a->next;
+	end->next = NULL;
 	stackadd_front(stack_a, node_a);
 	return (write(1, "rra\n", 4) - 3);
 }
@@ -36,10 +36,10 @@ int	reverse_rotate_b(t_stack **stack_b)
 	while (end->next->next)
 		end = end->next;
 	node_b = end;
-	end->next = NULL;
 	node_b = node_b->next;
+	end->next = NULL;
 	stackadd_front(stack_b, node_b);
-	return (write(1, "rra\n", 4) - 3);
+	return (write(1, "rrb\n", 4) - 3);
 }
 
 int	reverse_rotate_ab(t_stack **stack_a, t_stack **stack_b)

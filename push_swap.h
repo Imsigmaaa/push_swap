@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:45:35 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/04 14:46:13 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/05 15:39:37 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,31 @@ typedef struct s_stack
 char	**ft_parsing(int ac, char **av);
 t_stack	*change_to_list(char **arr, int *str);
 t_stack	*stacklast(t_stack *head);
+t_stack	*find_target_a(t_stack **stack_a, t_stack **stack_b);
+t_stack	*find_target_b(int index, t_stack **stack_b);
 void	ft_free_arr(char **arr);
 void	stackadd_front(t_stack **stack, t_stack *node);
 void	stackadd_back(t_stack **stack, t_stack *new);
 void	stackswap(t_stack **stack);
 void	find_best(t_stack **stack_a, t_stack **stack_b);
-//void	find_best(t_stack **stack_a, t_stack **stack_b);
+int		print_ab(t_stack **st_a, t_stack **st_b, t_stack *tag_a, t_stack *tag_b);
+int		count_post(t_stack **stack, t_stack *target);
+int		count_len(t_stack **stack);
+int		push_swap(t_stack **st_a, t_stack **st_b);
 int		push_a(t_stack **stack_a, t_stack **stack_b);
 int		push_b(t_stack **stack_a, t_stack **stack_b);
 int		swap_ab(t_stack **stack_a, t_stack **stack_b);
 int		rotate_a(t_stack **stack_a);
 int		rotate_b(t_stack **stack_b);
-int		rotate_rr(t_stack **stack_a, t_stack **stack_b);
+int		rotate_ab(t_stack **stack_a, t_stack **stack_b);
 int		reverse_rotate_a(t_stack **stack_a);
 int		reverse_rotate_b(t_stack **stack_b);
 int		reverse_rotate_ab(t_stack **stack_a, t_stack **stack_b);
 int		*sort_numbers(char **arr, int *str);
+
+void	ft_print_stack(t_stack *stack);
+void	print_stack(t_stack **stack);
+t_stack	*find_biggest_value(t_stack **stack);
+void	recount_post(t_stack **stack);
+
 #endif

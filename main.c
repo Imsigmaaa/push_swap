@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:23:17 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/04 14:55:36 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/05 17:29:03 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void ft_print_stack(t_stack *stack)
 	temp = stack;
 	if(!temp)
 		printf("null\n");
-	printf("-----------------------------------------\n");
 	while (temp)
 	{
 		printf("value=%d,index=%d\n",temp->value,temp->index);
@@ -59,37 +58,19 @@ int	main(int argc, char **argv)
 		return (ft_free_arr(arr), 0);
 	str = sort_numbers(arr, str);
 	if (!str)
-		return (free(stack_a), free(str), 0);
+		return (ft_stackclear(&stack_a), free(str), 0);
 	stack_a = NULL;
 	stack_b = NULL;
 	stack_a = change_to_list(arr, str);
 	if (!stack_a)
 		return (free(stack_a), free(str), 0);
-	int a = push_b(&stack_a,&stack_b);
-	printf("--------PUSH----------------------\n");
+	int i = push_swap(&stack_a, &stack_b);
+	printf("--------------main里的STACKA---------------\n");
 	ft_print_stack(stack_a);
+	printf("------------main里的STACKB------------------\n");
 	ft_print_stack(stack_b);
-	a = push_b(&stack_a,&stack_b);
-	printf("---------PUSH---------------------\n");
-	ft_print_stack(stack_a);
-	ft_print_stack(stack_b);
-	printf("----------push--------------------\n");
-	a = push_b(&stack_a,&stack_b);
-	ft_print_stack(stack_a);
-	ft_print_stack(stack_b);
-	printf("------------RR------------------\n");
-	find_best(&stack_a,&stack_b);
-	/*int b = rotate_rr(&stack_a,&stack_b);
 	printf("------------------------------\n");
-	ft_print_stack(stack_a);
-	ft_print_stack(stack_b);
-	printf("-------------RRR-----------------\n");
-	b = reverse_rotate_ab(&stack_a,&stack_b);
-	printf("------------------------------\n");
-	ft_print_stack(stack_a);
-	ft_print_stack(stack_b);
-	printf("------------------------------\n");*/
-	printf("%d\n",a);
+	printf("%d\n",i);
 	ft_stackclear(&stack_a);
 	ft_stackclear(&stack_b);
 	ft_free_arr(arr);
@@ -191,5 +172,3 @@ int a = push_b(&stack_a,&stack_b);
 	ft_print_stack(stack_b);
 	printf("------------------------------\n");
 	printf("%d%d\n",a,b);*/
-		
-

@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stackswap.c                                        :+:      :+:    :+:   */
+/*   count_len.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/28 11:13:41 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/05 12:16:18 by xingchen         ###   ########.fr       */
+/*   Created: 2026/03/05 12:04:23 by xingchen          #+#    #+#             */
+/*   Updated: 2026/03/05 14:45:22 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	stackswap(t_stack **stack)
+int	count_len(t_stack **stack)
 {
-	int	swap_value;
-	int	swap_index;
+	int		i;
+	t_stack	*temp;
 
-	if (!*stack || !(*stack)->next)
-		return ;
-	swap_value = (*stack)->value;
-	swap_index = (*stack)->value;
-	(*stack)->value = (*stack)->next->value;
-	(*stack)->index = (*stack)->next->index;
-	(*stack)->next->value = swap_value;
-	(*stack)->next->index = swap_index;
+	temp = *stack;
+	i = 0;
+	while (temp)
+	{
+		i ++;
+		temp = temp->next;
+	}
+	return (i);
 }
