@@ -12,26 +12,6 @@
 
 #include "push_swap.h"
 
-void	find_best_target(int index, t_stack **big, t_stack **least, t_stack **bigltl)
-{
-	t_stack	*temp;
-
-	temp = *big;
-	while (temp)
-	{
-		if (temp->index > (*big)->index)
-			*big = temp;
-		if (temp->index < (*least)->index)
-			*least = temp;
-		if(temp->index < index)
-		{
-			if (!*bigltl || temp->index > (*bigltl)->index)
-				*bigltl = temp;
-		}
-		temp = temp->next;
-	}
-}
-
 t_stack	*find_target_b(int index, t_stack **stack_b)
 {
 	t_stack	*big;
