@@ -36,5 +36,5 @@ t_stack	*find_target_b(int index, t_stack **stack_b)
 	}
 	if (index > big->index || index < least->index)
 		return (big);
-	return (ltlbig);
+	return (bigltl);
 }
