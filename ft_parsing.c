@@ -6,112 +6,99 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 11:24:06 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/05 12:13:14 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/06 20:01:16 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-long	ft_atol(char *nptr)
+int	is_number(int len, char *str)
 {
-	long	i;
-	long	result;
-	long	sign;
-
-	i = 0;
-	result = 0;
-	sign = 1;
-	while (nptr[i] == 32 || (9 <= nptr[i] && nptr[i] <= 13))
-		i ++;
-	if (nptr[i] == '+' || nptr[i] == '-')
-	{
-		if (nptr[i] == '-')
-			sign = -1;
-		i ++;
-	}
-	while ('0' <= nptr[i] && nptr[i] <= '9')
-	{
-		result = result * 10 + (nptr[i] - '0');
-		i ++;
-	}
-	return (result * sign);
-}
-
-int	is_error_digitdoule_and_extra(char **arr)
-{
-	int		j;
 	int		i;
 	long	a;
-	long	b;
 
 	i = 0;
-	while (arr[i])
+	while (i < len && (str[i] == 32 || (9 <= str[i] && str[i] <= 13)))
+		i ++;
+	if (i == len)
+		return (0);
+	if (str[i] == '+' || str[i] == '-')
+		i ++;
+	if (i == len)
+		return (0);
+	while (i < len && str[i])
 	{
-		j = 0;
-		a = ft_atol(arr[i]);
-		if (-2147483648 > a || a > 2147483647)
-			return (write(2, "Error\n", 6));
-		while (arr[j])
-		{
-			b = ft_atoi(arr[j]);
-			if (-2147483648 > b || b > 2147483647)
-				return (write(2, "Error\n", 6));
-			if (a == b && i != j)
-				return (write(2, "Error\n", 6));
-			j ++;
-		}
+		if (!ft_isdigit(str[i]))
+			return (0);
 		i ++;
 	}
-	return (0);
+	a = ft_atol(str);
+	if (-2147483648 > a || a > 2147483647)
+		return (0);
+	return (1);
 }
 
-int	is_error_digital(char **arr)
+int	check_arr_isnumber(char **arr)
 {
 	int	i;
-	int	j;
+	int	len;
 
 	i = 0;
 	while (arr[i])
 	{
-		j = 0;
-		while (arr[i][j])
+		len = ft_strlen(arr[i]);
+		if (!is_number(len, arr[i]))
+			return (0);
+		i ++;
+	}
+	i = 0;
+	
+	return (1);
+}
+
+char	**copy_av(int ac, char **arr, char **av)
+{
+	int	i;
+	int	k;
+
+	i = 1;
+	k = 0;
+	arr = malloc(sizeof(char *) * ac);
+	if (!arr)
+		return (NULL);
+	while (i < ac)
+	{
+		if (av[i][0] != '\0')
 		{
-			if (arr[i][j] == '+' || arr[i][j] == '-')
-				j ++;
-			if (!ft_isdigit(arr[i][j]))
-				return (write(2, "Error\n", 6));
-			while (ft_isdigit(arr[i][j]))
-				j ++;
-			if (arr[i][j] && !ft_isdigit(arr[i][j]))
-				return (write(2, "Error\n", 6));
+			arr[k] = av[i];
+			k ++;
 		}
 		i ++;
 	}
-	return (0);
+	arr[k] = NULL;
+	return (arr);
 }
 
-char	*ft_strjoin_with_space(char *s1, char *s2, char c)
+char	*ft_strjoin_with_space(char *join, char *s1)
 {
-	size_t	s2_len;
-	size_t	s1_len;
 	char	*dup;
+	char	*temp;
+	char	*space;
 
-	if (!s1)
-		s1_len = 0;
+	space = " ";
+	if (!join)
+		dup = ft_strdup(s1);
 	else
-		s1_len = ft_strlen(s1);
-	if (!s2)
-		s2_len = 0;
-	else
-		s2_len = ft_strlen(s2);
-	dup = malloc(s1_len + s2_len + 2);
+	{
+		temp = ft_strjoin(join, space);
+		free (join);
+		if (!temp)
+			return (NULL);
+		dup = ft_strjoin(temp, s1);
+		free (temp);
+	}
 	if (!dup)
 		return (NULL);
-	ft_memcpy(dup, s1, s1_len);
-	dup[s1_len] = c;
-	ft_memcpy(dup + s1_len + 1, s2, s2_len);
-	dup[s1_len + s2_len + 1] = '\0';
-	free(s1);
 	return (dup);
 }
 
@@ -120,24 +107,25 @@ char	**ft_parsing(int ac, char **av)
 	int		i;
 	char	*join;
 	char	**arr;
+	char	**tab;
 
+	if (ac == 2 && av[1][0] == '\0')
+		return (NULL);
 	join = NULL;
 	arr = NULL;
-	i = 1;
-	if (ac == 2 && av[1][0] == '\0')
-	{
-		write(2, "Error\n", 6);
+	arr = copy_av(ac, arr, av);
+	if (!arr)
 		return (NULL);
-	}
-	while (i < ac) //组合所有的元素、重新拆分
+	i = 0;
+	while (arr[i]) //组合所有的元素、重新拆分
 	{
-		join = ft_strjoin_with_space(join, av[i], ' ');
+		join = ft_strjoin_with_space(join, arr[i]);
 		if (!join)
-			return (free(join), NULL);
+			return (free(arr), NULL);
 		i ++;
 	}
-	arr = ft_split(join, 32);
-	if (!arr || is_error_digitdoule_and_extra(arr) || is_error_digital(arr))
-		return (ft_free_arr(arr), NULL);
-	return (free(join), arr);
+	tab = stack_split(join);
+	if (!tab || !check_arr_isnumber(tab))
+		return (free(arr), ft_free_arr(tab), NULL);
+	return (free(arr), free(join), tab);
 }

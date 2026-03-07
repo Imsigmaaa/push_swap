@@ -6,156 +6,101 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 11:55:20 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/05 17:32:58 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/07 03:18:22 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ab_rrr(t_stack **st_a, t_stack **st_b, t_stack *tag_a, t_stack *tag_b)
+void	ab_rrr(t_stack **st_a, t_stack **st_b, int rra, int rrb)
 {
-	int	i;
-	int	times;
-
-	i = 0;
-	if (count_len(st_a) - tag_a->post < count_len(st_b) - tag_b->post)
+	int cost;
+	if (rra < rrb)
 	{
-		times = count_post(st_a, tag_a) + i;
-		while (count_post(st_a, tag_a) != 0 && i < times)
-			i += reverse_rotate_ab(st_a, st_b);
-		times = count_post(st_b, tag_b) - count_post(st_a, tag_a) + i;
-		while (i < times)
-			i += reverse_rotate_b(st_b);
+		cost = rra;
+		while (cost-- > 0)
+			reverse_rotate_ab(st_a, st_b);
+		while (rrb-- > rra)
+			reverse_rotate_b(st_b);
 	}
 	else
 	{
-		times = count_len(st_b) - tag_b->post + i;
-		while (tag_b->post != 0 && i < times)
-			i += reverse_rotate_ab(st_a, st_b);
-		times = count_post(st_a, tag_a) - count_post(st_b, tag_b) + i;
-		while (i < times)
-			i += reverse_rotate_a(st_a);
+		cost = rrb;
+		while (cost-- > 0)
+			reverse_rotate_ab(st_a, st_b);
+		while (rra-- > rrb)
+			reverse_rotate_a(st_a);
 	}
-	/*printf("---------ab_and_rrr----------\n");
-	print_stack(st_a);
-	printf("---------ab_and_rrr----------\n");
-	print_stack(st_b);
-	printf("---------ab_and_rrr----------\n");*/
-	return (i);
 }
 
-int	ab_rr(t_stack **st_a, t_stack **st_b, t_stack *tag_a, t_stack *tag_b)
+void	ab_rr(t_stack **st_a, t_stack **st_b, int ra, int rb)
 {
-	int	i;
-	int	times;
-
-	i = 0;
-	if (tag_a->post < tag_b->post)
+	int	cost;
+	if (ra < rb)
 	{
-		times = tag_a->post + i;
-		while (tag_a->post != 0 && i < times)
-			i += rotate_ab(st_a, st_b);
-		times = tag_b->post - tag_a->post + i;
-		while (i < times)
-			i += rotate_b(st_b);
+		cost = ra;
+		while (cost-- > 0)
+			rotate_ab(st_a, st_b);
+		while (rb-- > ra)
+			rotate_b(st_b);
 	}
 	else
 	{
-		times = tag_b->post + i;
-		while (tag_b->post != 0 && i < times)
-			i += rotate_ab(st_a, st_b);
-		times = tag_a->post - tag_b->post + i;
-		while (i < times)
-			i += rotate_a(st_a);
+		cost = rb;
+		while (cost-- > 0)
+			rotate_ab(st_a, st_b);
+		while (ra-- > rb)
+			rotate_a(st_a);
 	}
-	/*printf("---------ab_and_rr----------\n");//没问题
-	print_stack(st_a);
-	printf("---------ab_and_rr----------\n");
-	print_stack(st_b);
-	printf("---------ab_and_rr----------\n");*/
-	return (i);
 }
 
-int	rra_and_rb(t_stack **st_a, t_stack **st_b, t_stack *tag_a, t_stack *tag_b)
+void	rra_and_rb(t_stack **st_a, t_stack **st_b, int rra, int rb)
 {
-	int	post_a;
-	int	post_b;
-	int	i;
-	int	times;
+	while (rra > 0)
+	{
+		reverse_rotate_a(st_a);
+		rra --;
+	}
+	while (rb > 0)
+	{
+		rotate_b(st_b);
+		rb --;
+	}
+}
 
-	post_a = tag_a->post;
-	post_b = tag_b->post;
-	i = 0;
-	/*printf("-----3----rra_and_rb----------\n");
-	print_stack(st_a);
-	printf("----3-----rra_and_rb----------\n");
-	print_stack(st_b);
-	printf("-------3--rra_and_rb----------\n");*/
-	times = i + count_len(st_a) - post_a;
-	while (i < times)
-		i += reverse_rotate_a(st_a);
-	times = i + post_b;
-	while (i < times)
-		i += rotate_b(st_b);
+void	rrb_and_ra(t_stack **st_a, t_stack **st_b, int ra, int rrb)
+{
 	
-	return (i);
+	while (rrb > 0)
+	{
+		reverse_rotate_b(st_b);
+		rrb --;
+	}
+	while (ra > 0)
+	{
+		rotate_a(st_a);
+		ra --;
+	}
 }
 
-int	rrb_and_ra(t_stack **st_a, t_stack **st_b, t_stack *tag_a, t_stack *tag_b)
-{
-	int	post_a;
-	int	post_b;
-	int	i;
-	int	times;
-
-	i = 0;
-	post_a = tag_a->post;
-	post_b = tag_b->post;
-	/*printf("---------rrb_and_ra----------\n");
-	print_stack(st_a);
-	printf("---------rrb_and_ra----------\n");
-	print_stack(st_b);
-	printf("---------rrb_and_ra----------\n");*/
-	times = i + count_len(st_b) - post_b;
-	while (i < times)
-		i += reverse_rotate_b(st_b);
-	//print_stack(st_b);
-	times = i + post_a;
-	while (i < times)
-		i += rotate_a(st_a);
-	/*printf("---------rrb_and_ra----------\n");
-	print_stack(st_a);
-	printf("---------rrb_and_ra----------\n");
-	print_stack(st_b);
-	printf("---------rrb_and_ra----------\n");*/
-	return (i);
-}
-
-int	print_ab(t_stack **st_a, t_stack **st_b, t_stack *tag_a, t_stack *tag_b)
+void	print_ab(t_stack **st_a, t_stack **st_b, t_stack *node)
 {
 	int	len_a;
 	int	len_b;
 	int	post_a;
 	int	post_b;
-	int	i;
 
-	post_a = tag_a->post;
-	post_b = tag_b->post;
+	post_a = node->post;
+	post_b = node->target_pos;
 	len_a = count_len(st_a);
 	len_b = count_len(st_b);
-	i = 0;
-	if (post_a > len_a / 2 && post_b > len_b / 2)
-		i = ab_rrr(st_a, st_b, tag_a, tag_b);
 
-		
+	if (post_a > len_a / 2 && post_b > len_b / 2)
+		ab_rrr(st_a, st_b, node->cost_a, node->cost_b);
 	else if (post_a <= len_a / 2 && post_b <= len_b / 2)
-		i = ab_rr(st_a, st_b, tag_a, tag_b);
-		
+		ab_rr(st_a, st_b, node->cost_a, node->cost_b);
 	else if (post_a > len_a / 2 && post_b <= len_b / 2)
-		i = rra_and_rb(st_a, st_b, tag_a, tag_b);
-		
-		
+		rra_and_rb(st_a, st_b, node->cost_a, node->cost_b);
 	else
-		i = rrb_and_ra(st_a, st_b, tag_a, tag_b);
-	return (i);
+		rrb_and_ra(st_a, st_b, node->cost_a, node->cost_b);
 }

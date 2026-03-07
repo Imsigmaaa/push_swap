@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 22:44:34 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/03 14:56:21 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/06 17:38:55 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_free_arr(char **arr)
 	int	i;
 
 	i = 0;
-	if (!*arr)
+	if (!arr)
 		return ;
 	while (arr[i])
 	{

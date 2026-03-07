@@ -6,32 +6,18 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 21:04:46 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/05 21:21:17 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/07 03:33:28 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void print_stack(t_stack **stack)
-{
-	t_stack *temp;
-
-	temp = *stack;
-	if(!temp)
-		printf("null\n");
-	while (temp)
-	{
-		printf("value=%d,index=%d,post=%d\n",temp->value,temp->index,temp->post);
-		temp = temp->next;
-	}
-}
-
 void	recount_post(t_stack **stack)
 {
 	int		i;
 	t_stack	*new;
+
 	new = *stack;
-	
 	i = 0;
 	while (new)
 	{
@@ -40,66 +26,87 @@ void	recount_post(t_stack **stack)
 		new = new->next;
 	}
 }
-int sort_b(t_stack **st_b)
-{
-	int	i;
-	int len;
 
+void	sort_b(t_stack **st_b)
+{
+	int		len;
 	t_stack	*big;
-	i = 0;
-	big = find_biggest_value(st_b);
+
 	len = count_len(st_b);
+	big = find_biggest_value(st_b);
 	recount_post(st_b);
-	if(big->post <= len / 2)
+	if (big->post <= len / 2)
 	{
-		while (i < big->post)
-		i += rotate_b(st_b);
+		while (big->post > 0)
+		{
+			rotate_b(st_b);
+			big->post --;
+		}
 	}
 	else
 	{
-		while (i < len - big->post)
-			i += reverse_rotate_b(st_b);
+		while (len - big->post > 0)
+		{
+			reverse_rotate_b(st_b);
+			len --;
+		}
 	}
-	return i;
 }
-int	push_swap(t_stack **st_a, t_stack **st_b)
+void	recount_target_pos(t_stack **st_a, t_stack **st_b)
 {
-	int		i;
-	t_stack	*tag_a;
-	t_stack	*tag_b;
+	t_stack	*temp;
+	t_stack	*target_b;
+	
+	temp = *st_a;
+	while (temp)
+	{
+		target_b = find_target_b(temp->index, st_b);
+		temp->target_pos = target_b->post;
+		temp = temp->next;
+	}
+	
+}
+void	recount_cost(t_stack **st_a, t_stack **st_b)
+{
+	int	len_a;
+	int	len_b;
+	t_stack	*temp;
 
-	i = 0;
-	i += push_b(st_a,st_b);
-	i += push_b(st_a,st_b);
-	printf("-PUSH_SWAP开局位置stack_a-\n");
-	print_stack(st_a);
-	printf("--PUSH_SWAP开局位置stack_b--\n");
-	print_stack(st_b);
+	temp = *st_a;
+	len_a = count_len(st_a);
+	len_b = count_len(st_b);
+	while (temp)
+	{
+		if(temp->post <= len_a/2)
+			temp->cost_a = temp->post;
+		else
+			temp->cost_a =len_a - temp->post;
+		if(temp->target_pos <= len_b/2)
+			temp->cost_b = temp->target_pos;
+		else
+			temp->cost_b =len_b - temp->target_pos;
+		temp = temp->next;
+	}
+}
+
+void	push_swap(t_stack **st_a, t_stack **st_b)
+{
+	t_stack	*node;
+
+	push_b(st_a, st_b);
+	push_b(st_a, st_b);
 	while (*st_a)
 	{
 		recount_post(st_a);
 		recount_post(st_b);
-		printf("----PUSH_SWAP每次重新计算位置stack_a-----\n");
-		print_stack(st_a);
-		printf("----PUSH_SWAP每次重新计算位置stack_b-----\n");
-		print_stack(st_b);
-		printf("--------PUSH_SWAP每次重新计算位置end-----\n");
-		tag_a = find_target_a(st_a, st_b);
-		tag_b = find_target_b(tag_a->index, st_b);
-		printf("-----PUSH_SWAP每次重新计算位置target_a----\n");
-		ft_print_stack(tag_a);
-		printf("-----PUSH_SWAP每次重新计算位置target_b----\n");
-		ft_print_stack(tag_b);
-		printf("-----PUSH_SWAPendddddddddddddd---------\n");
-		/*if (tag_a->post == 0 && tag_b->post == 0)
-			i += push_b(st_a, st_b);*/
-		//else
-		i += print_ab(st_a, st_b, tag_a, tag_b);
-		i += push_b(st_a, st_b);
+		recount_target_pos(st_a, st_b);
+		recount_cost(st_a, st_b);
+		node = find_best_node(st_a, st_b);
+		print_ab(st_a, st_b, node);
+		if(*st_a)
+			push_b(st_a, st_b);
 	}
-	i += sort_b(st_b);
+	sort_b(st_b);
 	while (*st_b)
-		i += push_a(st_a,st_b);
-	return (i);
+		push_a(st_a, st_b);
 }
-

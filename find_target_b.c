@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:56:36 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/05 19:02:49 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/07 04:01:20 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,23 @@ t_stack	*find_least_value(t_stack **stack)
 	return (least);
 }
 
-t_stack	*find_littlebigger_value(int index, t_stack **stack)
+t_stack	*find_largest_less_than(int index, t_stack **stack)
 {
-	t_stack	*ltlbig;
+	t_stack	*biglittle;
 	t_stack	*temp;
 
 	temp = *stack;
+	biglittle = NULL;
 	while (temp)
 	{
-		if (index == temp->index + 1)
+		if(temp->index < index)
 		{
-			ltlbig = temp;
-			return (ltlbig);
+			if (!biglittle || temp->index > biglittle->index)
+				biglittle = temp;
 		}
 		temp = temp->next;
 	}
-	return (NULL);
+	return (biglittle);
 }
 
 t_stack	*find_target_b(int index, t_stack **stack_b)
@@ -75,9 +76,8 @@ t_stack	*find_target_b(int index, t_stack **stack_b)
 		target_b = big;
 	else
 	{
-		ltlbig = find_littlebigger_value(index, stack_b);
+		ltlbig = find_largest_less_than(index, stack_b);
 		target_b = ltlbig;
 	}
-	//target_b->next = NULL;
 	return (target_b);
 }

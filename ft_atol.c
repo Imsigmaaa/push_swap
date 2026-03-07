@@ -1,39 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_ab.c                                          :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/26 22:26:33 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/07 01:42:02 by xingchen         ###   ########.fr       */
+/*   Created: 2026/03/06 16:49:34 by xingchen          #+#    #+#             */
+/*   Updated: 2026/03/06 16:50:07 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	push_b(t_stack **stack_a, t_stack **stack_b)
+long	ft_atol(char *nptr)
 {
-	t_stack	*node_a;
+	long	i;
+	long	result;
+	long	sign;
 
-	if (!*stack_a)
-		return ;
-	node_a = *stack_a;
-	*stack_a = (*stack_a)->next;
-	stackadd_front(stack_b, node_a);
-	write(1, "pb\n", 3);
-	return ;
-}
-
-void	push_a(t_stack **stack_a, t_stack **stack_b)
-{
-	t_stack	*node_b;
-
-	if (!*stack_b)
-		return ;
-	node_b = *stack_b;
-	*stack_b = (*stack_b)->next;
-	stackadd_front(stack_a, node_b);
-	write(1, "pa\n", 3);
-	return ;
+	i = 0;
+	result = 0;
+	sign = 1;
+	while (nptr[i] == 32 || (9 <= nptr[i] && nptr[i] <= 13))
+		i ++;
+	if (nptr[i] == '+' || nptr[i] == '-')
+	{
+		if (nptr[i] == '-')
+			sign = -1;
+		i ++;
+	}
+	while ('0' <= nptr[i] && nptr[i] <= '9')
+	{
+		result = result * 10 + (nptr[i] - '0');
+		i ++;
+	}
+	return (result * sign);
 }

@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_ab.c                                          :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/26 22:26:33 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/07 01:42:02 by xingchen         ###   ########.fr       */
+/*   Created: 2026/03/06 20:23:50 by xingchen          #+#    #+#             */
+/*   Updated: 2026/03/06 20:24:36 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	push_b(t_stack **stack_a, t_stack **stack_b)
+int	ft_strcmp(char *s1, char *s2)
 {
-	t_stack	*node_a;
+	size_t	i;
 
-	if (!*stack_a)
-		return ;
-	node_a = *stack_a;
-	*stack_a = (*stack_a)->next;
-	stackadd_front(stack_b, node_a);
-	write(1, "pb\n", 3);
-	return ;
-}
-
-void	push_a(t_stack **stack_a, t_stack **stack_b)
-{
-	t_stack	*node_b;
-
-	if (!*stack_b)
-		return ;
-	node_b = *stack_b;
-	*stack_b = (*stack_b)->next;
-	stackadd_front(stack_a, node_b);
-	write(1, "pa\n", 3);
-	return ;
+	i = 0;
+	while ((s1[i] && s2[i]))
+	{
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		i ++;
+	}
+	return (s1[i] - s2[i]);
 }

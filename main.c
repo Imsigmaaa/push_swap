@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:23:17 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/05 22:00:51 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/07 02:52:45 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,25 @@ void	ft_stackclear(t_stack **lst)
 	}
 	*lst = NULL;
 }
-void ft_print_stack(t_stack *stack)
-{
-	t_stack *temp;
 
-	temp = stack;
-	if(!temp)
-		printf("null\n");
-	while (temp)
+int	isdigit_double(char **arr)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (arr[i])
 	{
-		printf("value=%d,index=%d, post =%d\n",temp->value,temp->index,temp->post);
-		temp = temp->next;
+		j = 0;
+		while (arr[j])
+		{
+			if(i != j && ft_strcmp(arr[i], arr[j]) == 0)
+				return (1);
+			j ++;
+		}
+		i ++;
 	}
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -49,34 +56,26 @@ int	main(int argc, char **argv)
 	t_stack	*stack_a;
 	t_stack	*stack_b;
 
-	arr = NULL;
+	stack_a = NULL;
+	stack_b = NULL;
 	str = NULL;
-	if (argc == 1 || (argc == 2 && !argv[1]))
+	if (argc == 1)
 		return (0);
+	arr = NULL;
 	arr = ft_parsing(argc, argv);
-	if (!arr)
+	if (!arr || isdigit_double(arr))
+	{
+		write(2, "Error\n", 6);
 		return (ft_free_arr(arr), 0);
+	}
 	str = sort_numbers(arr, str);
 	if (!str)
 		return (ft_stackclear(&stack_a), free(str), 0);
-	stack_a = NULL;
-	stack_b = NULL;
 	stack_a = change_to_list(arr, str);
 	if (!stack_a)
-		return (free(stack_a), free(str), 0);
-	int i = push_swap(&stack_a, &stack_b);
-	
-	printf("-------main里的STACK_A------\n");
-	ft_print_stack(stack_a);
-	printf("-----main里的STACK_B-------\n");
-	ft_print_stack(stack_b);
-	printf("-------------------------\n");
-	printf("%d\n",i);
-	ft_stackclear(&stack_a);
-	ft_stackclear(&stack_b);
-	ft_free_arr(arr);
-	free(str);
-	return (0);
+		return (ft_stackclear(&stack_a), free(str), 0);
+	push_swap(&stack_a, &stack_b);
+	return ( ft_stackclear(&stack_a), ft_stackclear(&stack_b), 0);
 }
 	//检查split后的字符串组
 	/*while(arr[i])
@@ -173,3 +172,33 @@ int a = push_b(&stack_a,&stack_b);
 	ft_print_stack(stack_b);
 	printf("------------------------------\n");
 	printf("%d%d\n",a,b);*/
+
+	/*打印 一
+	void ft_print_stack(t_stack *stack)
+{
+	t_stack *temp;
+
+	temp = stack;
+	if(!temp)
+		printf("null\n");
+	while (temp)
+	{
+		printf("value=%d,index=%d, post =%d\n",temp->value,temp->index,temp->post);
+		temp = temp->next;
+	}
+}*/
+/*打印二
+void	print_stack(t_stack **stack)
+{
+	t_stack	*temp;
+
+	temp = *stack;
+	if (!temp)
+		printf("null\n");
+	while (temp)
+	{
+		printf ("value=%d, index=%d, post=%d\n", temp->value, temp->index, temp->post);
+		temp = temp->next;
+	}
+}
+*/
