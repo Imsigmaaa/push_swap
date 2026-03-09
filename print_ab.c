@@ -86,7 +86,7 @@ void	rrb_ra_moves(t_stack **st_a, t_stack **st_b, int ra, int rrb)
 	}
 }
 
-void	print_ab(t_stack **st_a, t_stack **st_b, t_stack *node)
+void	rotate_for_push_b(t_stack **st_a, t_stack **st_b, t_stack *node)
 {
 	int	len_a;
 	int	len_b;
@@ -108,7 +108,7 @@ void	print_ab(t_stack **st_a, t_stack **st_b, t_stack *node)
 		rrb_ra_moves(st_a, st_b, node->cost_a, node->cost_b);
 }
 
-void	push_b2a(t_stack **st_a, t_stack **st_b, t_stack *node)
+void	rotate_for_push_a(t_stack **st_a, t_stack **st_b, t_stack *node)
 {
 	int	len_a;
 	int	len_b;
