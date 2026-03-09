@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	ab_rrr(t_stack **st_a, t_stack **st_b, int cost_a, int cost_b)
+void	rrr_moves(t_stack **st_a, t_stack **st_b, int cost_a, int cost_b)
 {
 	int cost;
 
@@ -36,7 +36,7 @@ void	ab_rrr(t_stack **st_a, t_stack **st_b, int cost_a, int cost_b)
 	}
 }
 
-void	ab_rr(t_stack **st_a, t_stack **st_b, int ra, int rb)
+void	rr_moves(t_stack **st_a, t_stack **st_b, int ra, int rb)
 {
 	int	cost;
 	if (ra < rb)
@@ -57,7 +57,7 @@ void	ab_rr(t_stack **st_a, t_stack **st_b, int ra, int rb)
 	}
 }
 
-void	rra_and_rb(t_stack **st_a, t_stack **st_b, int rra, int rb)
+void	rra_rb_moves(t_stack **st_a, t_stack **st_b, int rra, int rb)
 {
 	while (rra > 0)
 	{
@@ -71,7 +71,7 @@ void	rra_and_rb(t_stack **st_a, t_stack **st_b, int rra, int rb)
 	}
 }
 
-void	rrb_and_ra(t_stack **st_a, t_stack **st_b, int ra, int rrb)
+void	rrb_ra_moves(t_stack **st_a, t_stack **st_b, int ra, int rrb)
 {
 	
 	while (rrb > 0)
@@ -99,13 +99,13 @@ void	print_ab(t_stack **st_a, t_stack **st_b, t_stack *node)
 	len_b = count_len(st_b);
 
 	if (post_a > len_a / 2 && post_b > len_b / 2)
-		ab_rrr(st_a, st_b, node->cost_a, node->cost_b);
+        rr_moves(st_a, st_b, node->cost_a, node->cost_b);
 	else if (post_a <= len_a / 2 && post_b <= len_b / 2)
-		ab_rr(st_a, st_b, node->cost_a, node->cost_b);
+		rr_moves(st_a, st_b, node->cost_a, node->cost_b);
 	else if (post_a > len_a / 2 && post_b <= len_b / 2)
-		rra_and_rb(st_a, st_b, node->cost_a, node->cost_b);
+		rra_rb_moves(st_a, st_b, node->cost_a, node->cost_b);
 	else
-		rrb_and_ra(st_a, st_b, node->cost_a, node->cost_b);
+		rrb_ra_moves(st_a, st_b, node->cost_a, node->cost_b);
 }
 
 void	push_b2a(t_stack **st_a, t_stack **st_b, t_stack *node)
