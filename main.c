@@ -6,12 +6,50 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:23:17 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/07 02:52:45 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/09 06:21:53 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+#include <stdio.h>
+void ft_print_stack(t_stack *stack)
+{
+	t_stack *temp;
+
+	temp = stack;
+	if(!temp)
+		printf("null\n");
+	while (temp)
+	{
+		printf("value=%d\n",temp->value);
+		temp = temp->next;
+	}
+}
+/*void print_stacks(t_stack *st_a, t_stack *st_b, const char *action)
+{
+    t_stack *tmp;
+
+    printf("=== %s ===\n", action);
+
+    printf("A: ");
+    tmp = st_a;
+    while (tmp)
+    {
+        printf("%d ", tmp->value);
+        tmp = tmp->next;
+    }
+    printf("\n");
+
+    printf("B: ");
+    tmp = st_b;
+    while (tmp)
+    {
+        printf("%d ", tmp->value);
+        tmp = tmp->next;
+    }
+    printf("\n\n");
+}*/
 void	ft_stackclear(t_stack **lst)
 {
 	t_stack	*temp;
@@ -29,26 +67,6 @@ void	ft_stackclear(t_stack **lst)
 	*lst = NULL;
 }
 
-int	isdigit_double(char **arr)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (arr[i])
-	{
-		j = 0;
-		while (arr[j])
-		{
-			if(i != j && ft_strcmp(arr[i], arr[j]) == 0)
-				return (1);
-			j ++;
-		}
-		i ++;
-	}
-	return (0);
-}
-
 int	main(int argc, char **argv)
 {
 	char	**arr;
@@ -63,7 +81,7 @@ int	main(int argc, char **argv)
 		return (0);
 	arr = NULL;
 	arr = ft_parsing(argc, argv);
-	if (!arr || isdigit_double(arr))
+	if (!arr)
 	{
 		write(2, "Error\n", 6);
 		return (ft_free_arr(arr), 0);
@@ -74,7 +92,13 @@ int	main(int argc, char **argv)
 	stack_a = change_to_list(arr, str);
 	if (!stack_a)
 		return (ft_stackclear(&stack_a), free(str), 0);
-	push_swap(&stack_a, &stack_b);
+	int len_a = count_len(&stack_a);
+	if(len_a < 4)
+		push_swapformin(&stack_a,&stack_b);
+	else
+		push_swap(&stack_a, &stack_b);
+	//ft_print_stack(stack_a);
+	//ft_print_stack(stack_b);
 	return ( ft_stackclear(&stack_a), ft_stackclear(&stack_b), 0);
 }
 	//检查split后的字符串组

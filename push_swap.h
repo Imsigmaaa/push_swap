@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:45:35 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/07 03:14:35 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/09 05:37:32 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_stack	*change_to_list(char **arr, int *str);
 t_stack	*stacklast(t_stack *head);
 t_stack	*find_best_node(t_stack **stack_a, t_stack **stack_b);
 t_stack	*find_target_b(int index, t_stack **stack_b);
+t_stack	*find_target_a(int index, t_stack **stack_b);
 void	ft_free_arr(char **arr);
 void	stackadd_front(t_stack **stack, t_stack *node);
 void	stackadd_back(t_stack **stack, t_stack *new);
@@ -47,6 +48,8 @@ void	push_swap(t_stack **st_a, t_stack **st_b);
 void	push_a(t_stack **stack_a, t_stack **stack_b);
 void	push_b(t_stack **stack_a, t_stack **stack_b);
 void	swap_ab(t_stack **stack_a, t_stack **stack_b);
+void	swap_a(t_stack **stack_a);
+void	swap_b(t_stack **stack_b);
 void	rotate_a(t_stack **stack_a);
 void	rotate_b(t_stack **stack_b);
 void	rotate_ab(t_stack **stack_a, t_stack **stack_b);
@@ -55,14 +58,18 @@ void	reverse_rotate_b(t_stack **stack_b);
 void	reverse_rotate_ab(t_stack **stack_a, t_stack **stack_b);
 int		*sort_numbers(char **arr, int *str);
 long	ft_atol(char *nptr);
-char	**stack_split(char const *s);
+char	**ft_split_tokens(char const *s);
 int		ft_strcmp(char *s1, char *s2);
 
+
+void	push_swapformin(t_stack **st_a, t_stack **st_b);
 void	ft_print_stack(t_stack *stack);
-void	print_stack(t_stack **stack);
+void print_stacks(t_stack *st_a, t_stack *st_b, const char *action);
 t_stack	*find_biggest_value(t_stack **stack);
 void	recount_post(t_stack **stack);
 int	calcul_len(char **arr);
 void	ft_stackclear(t_stack **lst);
+t_stack	*find_best_node_b(t_stack **stack_a, t_stack **stack_b);
+void	push_b2a(t_stack **st_a, t_stack **st_b, t_stack *node);
 
 #endif

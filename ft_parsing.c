@@ -6,92 +6,49 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 11:24:06 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/06 20:01:16 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/09 06:50:36 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	is_number(int len, char *str)
-{
-	int		i;
-	long	a;
-
-	i = 0;
-	while (i < len && (str[i] == 32 || (9 <= str[i] && str[i] <= 13)))
-		i ++;
-	if (i == len)
-		return (0);
-	if (str[i] == '+' || str[i] == '-')
-		i ++;
-	if (i == len)
-		return (0);
-	while (i < len && str[i])
-	{
-		if (!ft_isdigit(str[i]))
-			return (0);
-		i ++;
-	}
-	a = ft_atol(str);
-	if (-2147483648 > a || a > 2147483647)
-		return (0);
-	return (1);
-}
-
-int	check_arr_isnumber(char **arr)
-{
-	int	i;
-	int	len;
-
-	i = 0;
-	while (arr[i])
-	{
-		len = ft_strlen(arr[i]);
-		if (!is_number(len, arr[i]))
-			return (0);
-		i ++;
-	}
-	i = 0;
-	
-	return (1);
-}
-
-char	**copy_av(int ac, char **arr, char **av)
+char	**copy_avgs(int ac, char **avgs)
 {
 	int	i;
 	int	k;
+	char **avgs_cp;
 
 	i = 1;
 	k = 0;
-	arr = malloc(sizeof(char *) * ac);
-	if (!arr)
+	avgs_cp = malloc(sizeof(char *) * ac);
+	if (!avgs_cp)
 		return (NULL);
 	while (i < ac)
 	{
-		if (av[i][0] != '\0')
+		if (avgs[i][0] != '\0')
 		{
-			arr[k] = av[i];
+			avgs_cp[k] = avgs[i];
 			k ++;
 		}
 		i ++;
 	}
-	arr[k] = NULL;
-	return (arr);
+	avgs_cp[k] = NULL;
+	return (avgs_cp);
 }
 
-char	*ft_strjoin_with_space(char *join, char *s1)
+char	*ft_args_join(char *joined_args, char *s1)
 {
 	char	*dup;
 	char	*temp;
 	char	*space;
 
 	space = " ";
-	if (!join)
+	if (!joined_args)
 		dup = ft_strdup(s1);
 	else
 	{
-		temp = ft_strjoin(join, space);
-		free (join);
+		temp = ft_strjoin(joined_args, space);
+		free (joined_args);
 		if (!temp)
 			return (NULL);
 		dup = ft_strjoin(temp, s1);
@@ -102,30 +59,77 @@ char	*ft_strjoin_with_space(char *join, char *s1)
 	return (dup);
 }
 
+int	is_number(char **tokens)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (tokens[i])
+	{
+		j = 0;
+		if(tokens[i][j] == '+' || tokens[i][j] == '-')
+			j ++;
+		if(!tokens[i][j])
+			return	(0);
+		while (tokens[i][j])
+		{
+			if (!ft_isdigit(tokens[i][j]))
+				return (0);
+			j ++;
+		}
+		i ++;
+	}
+	return (1);
+}
+
+int	is_double_or_extra(char **arr)
+{
+	int		i;
+	int		j;
+	long	a;
+	long	b;
+
+	i = 0;
+	while (arr[i])
+	{
+		j = 0;
+		a = ft_atol(arr[i]);
+		while (arr[j])
+		{
+			b = ft_atol(arr[j]);
+			if (b < -2147483648 || b > 2147483647)
+				return (0);
+			if(i != j && a == b)
+				return (0);
+			j ++;
+		}
+		i ++;
+	}
+	return (1);
+}
+
 char	**ft_parsing(int ac, char **av)
 {
 	int		i;
-	char	*join;
-	char	**arr;
-	char	**tab;
+	char	*joined_args;
+	char	**args_cp;
+	char	**tokens;
 
-	if (ac == 2 && av[1][0] == '\0')
-		return (NULL);
-	join = NULL;
-	arr = NULL;
-	arr = copy_av(ac, arr, av);
-	if (!arr)
+	joined_args = NULL;
+	args_cp = copy_avgs(ac, av);
+	if (!args_cp)
 		return (NULL);
 	i = 0;
-	while (arr[i]) //组合所有的元素、重新拆分
+	while (args_cp[i]) //组合所有的元素、重新拆分
 	{
-		join = ft_strjoin_with_space(join, arr[i]);
-		if (!join)
-			return (free(arr), NULL);
+		joined_args = ft_args_join(joined_args, args_cp[i]);
+		if (!joined_args)
+			return (free(args_cp), NULL);
 		i ++;
 	}
-	tab = stack_split(join);
-	if (!tab || !check_arr_isnumber(tab))
-		return (free(arr), ft_free_arr(tab), NULL);
-	return (free(arr), free(join), tab);
+	tokens = ft_split_tokens(joined_args);
+	if (!tokens || !is_number(tokens) || !is_double_or_extra(tokens))
+		return (free(args_cp),free(joined_args), ft_free_arr(tokens), NULL);
+	return (free(args_cp), free(joined_args), tokens);
 }

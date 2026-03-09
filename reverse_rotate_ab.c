@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 16:37:39 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/07 02:42:29 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/08 13:45:01 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,12 @@ void	reverse_rotate_b(t_stack **stack_b)
 
 void	reverse_rotate_ab(t_stack **stack_a, t_stack **stack_b)
 {
-	if (*stack_a && (*stack_a)->next)
-		reverse_rotate_a(stack_a);
-	if (*stack_b && (*stack_b)->next)
-		reverse_rotate_b(stack_b);
+	if (!stack_a || !*stack_a || !(*stack_a)->next)
+		return ;
+	if (!stack_b || !*stack_b || !(*stack_b)->next)
+		return ;
+	reverse_rotate(stack_a);
+	reverse_rotate(stack_b);
+	write(1, "rrr\n", 4);
 	return ;
 }

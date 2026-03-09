@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 16:00:42 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/06 17:43:34 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/09 04:04:49 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static	char	*fill_array(char **dup, char const *s, int *index)
 	return (*dup);
 }
 
-char	**stack_split(char const *s)
+char	**ft_split_tokens(char const *s)
 {
 	char	**dup;
 	int		dup_len;
