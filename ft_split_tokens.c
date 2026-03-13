@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_split.c                                      :+:      :+:    :+:   */
+/*   ft_split_tokens.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 16:00:42 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/09 04:04:49 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/13 16:15:44 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	is_space(char c)
+static	int	is_space(char c)
 {
-	int		i;
-	char	s[7];
+	char	*spaces;
+	char	*s;
 
-	s[0] = 9;
-	s[1] = 10;
-	s[2] = 11;
-	s[3] = 12;
-	s[4] = 13;
-	s[5] = 32;
-	s[6] = 0;
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] && s[i] == c)
-			return (1);
-		i ++;
-	}
+	spaces = "\t\n\v\f\r ";
+	s = ft_strchr(spaces, c);
+	if (s)
+		return (1);
 	return (0);
 }
 

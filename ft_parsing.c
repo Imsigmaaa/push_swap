@@ -6,17 +6,17 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 11:24:06 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/09 06:50:36 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/10 01:27:39 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-char	**copy_avgs(int ac, char **avgs)
+static	char	**copy_avgs(int ac, char **avgs)
 {
-	int	i;
-	int	k;
-	char **avgs_cp;
+	int		i;
+	int		k;
+	char	**avgs_cp;
 
 	i = 1;
 	k = 0;
@@ -36,7 +36,7 @@ char	**copy_avgs(int ac, char **avgs)
 	return (avgs_cp);
 }
 
-char	*ft_args_join(char *joined_args, char *s1)
+static	char	*ft_args_join(char *joined_args, char *s1)
 {
 	char	*dup;
 	char	*temp;
@@ -59,7 +59,7 @@ char	*ft_args_join(char *joined_args, char *s1)
 	return (dup);
 }
 
-int	is_number(char **tokens)
+static	int	is_number(char **tokens)
 {
 	int		i;
 	int		j;
@@ -68,10 +68,10 @@ int	is_number(char **tokens)
 	while (tokens[i])
 	{
 		j = 0;
-		if(tokens[i][j] == '+' || tokens[i][j] == '-')
+		if (tokens[i][j] == '+' || tokens[i][j] == '-')
 			j ++;
-		if(!tokens[i][j])
-			return	(0);
+		if (!tokens[i][j])
+			return (0);
 		while (tokens[i][j])
 		{
 			if (!ft_isdigit(tokens[i][j]))
@@ -83,7 +83,7 @@ int	is_number(char **tokens)
 	return (1);
 }
 
-int	is_double_or_extra(char **arr)
+static	int	is_double_or_extra(char **arr)
 {
 	int		i;
 	int		j;
@@ -100,7 +100,7 @@ int	is_double_or_extra(char **arr)
 			b = ft_atol(arr[j]);
 			if (b < -2147483648 || b > 2147483647)
 				return (0);
-			if(i != j && a == b)
+			if (i != j && a == b)
 				return (0);
 			j ++;
 		}
@@ -121,7 +121,7 @@ char	**ft_parsing(int ac, char **av)
 	if (!args_cp)
 		return (NULL);
 	i = 0;
-	while (args_cp[i]) //组合所有的元素、重新拆分
+	while (args_cp[i])
 	{
 		joined_args = ft_args_join(joined_args, args_cp[i]);
 		if (!joined_args)
@@ -130,6 +130,6 @@ char	**ft_parsing(int ac, char **av)
 	}
 	tokens = ft_split_tokens(joined_args);
 	if (!tokens || !is_number(tokens) || !is_double_or_extra(tokens))
-		return (free(args_cp),free(joined_args), ft_free_arr(tokens), NULL);
+		return (free(args_cp), free(joined_args), ft_free_arr(tokens), NULL);
 	return (free(args_cp), free(joined_args), tokens);
 }

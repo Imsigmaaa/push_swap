@@ -5,346 +5,200 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/04 21:04:46 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/09 05:51:47 by xingchen         ###   ########.fr       */
+/*   Created: 2026/02/20 12:23:17 by xingchen          #+#    #+#             */
+/*   Updated: 2026/03/13 16:13:55 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	is_sort_stack(t_stack **stack)
+void	ft_free_arr(char **arr)
 {
-	t_stack *temp;
-	int i;
-	int len;
+	int	i;
 
 	i = 0;
-	len = count_len(stack);
+	if (!arr)
+		return ;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i ++;
+	}
+	free(arr);
+}
+
+int	is_sort_stack(t_stack **stack)
+{
+	t_stack	*temp;
+	int		i;
+	int		len;
+
+	i = 0;
+	len = stack_size(stack);
 	temp = *stack;
 	while (temp && i < len)
 	{
-		if(temp->index != i)
+		if (temp->index != i)
 			return (0);
 		i ++;
 		temp = temp->next;
 	}
 	return (1);
 }
-void	recount_post(t_stack **stack)
-{
-	int		i;
-	t_stack	*new;
 
-	new = *stack;
-	i = 0;
-	while (new)
+void	push_swap(t_stack **a, t_stack **b)
+{
+	t_stack	*node;
+
+	if (is_sort_stack(a))
+		return ;
+	small_sort(a, b);
+	if (!*b)
+		return ;
+	while (*b)
 	{
-		new->post = i;
+		set_position(a);
+		set_position(b);
+		set_target(a, b);
+		set_cost(a, b);
+		node = find_best_node(a, b);
+		rotate_for_push_a(a, b, node);
+		push_a(a, b);
+	}
+	sort_stack(a);
+	return ;
+}
+
+int	main(int argc, char **argv)
+{
+	char	**tokens;
+	int		*str;
+	t_stack	*a;
+	t_stack	*b;
+
+	a = NULL;
+	b = NULL;
+	if (argc == 1)
+		return (0);
+	tokens = ft_parsing(argc, argv);
+	if (!tokens)
+	{
+		write(2, "Error\n", 6);
+		return (ft_free_arr(tokens), 0);
+	}
+	str = ft_sort_numbers(tokens);
+	if (!str)
+		return (stack_clear(&a), free(str), 0);
+	a = create_stack(tokens, str);
+	if (!a)
+		return (stack_clear(&a), free(str), 0);
+	push_swap(&a, &b);
+	return (stack_clear(&a), stack_clear(&b), 0);
+}
+//ft_print_stack(stack_a);
+	//ft_print_stack(stack_b);	
+//检查split后的字符串组
+	/*while(arr[i])
+	{
+		printf("%s\n",arr[i]);
 		i ++;
-		new = new->next;
-	}
-}
-void	recount_cost(t_stack **st_a, t_stack **st_b)
-{
-	int	len_a;
-	int	len_b;
-	t_stack	*temp;
-
-	temp = *st_a;
-	len_a = count_len(st_a);
-	len_b = count_len(st_b);
-	while (temp)
-	{
-		if(temp->post <= len_a/2)
-			temp->cost_a = temp->post;
-		else
-			temp->cost_a =len_a - temp->post;
-		if(temp->target_pos <= len_b/2)
-			temp->cost_b = temp->target_pos;
-		else
-			temp->cost_b =len_b - temp->target_pos;
-		//fprintf(stderr, "index=%d post_a=%d cost_a=%d target_pos=%d cost_b=%d\n",
-       //     temp->index, temp->post, temp->cost_a, temp->target_pos, temp->cost_b);
-		temp = temp->next;
-	}
-}
-void	recount_cost_b(t_stack **st_a, t_stack **st_b)
-{
-	int	len_a;
-	int	len_b;
-	t_stack	*temp;
-
-	temp = *st_b;
-	len_a = count_len(st_a);
-	len_b = count_len(st_b);
-	while (temp)
-	{
-		if(temp->post <= len_b/2)
-			temp->cost_b = temp->post;
-		else
-			temp->cost_b =len_b - temp->post;
-		if(temp->target_pos <= len_a/2)
-			temp->cost_a = temp->target_pos;
-		else
-			temp->cost_a =len_a - temp->target_pos;
-		/*fprintf(stderr, "index=%d post_a=%d cost_a=%d target_pos=%d cost_b=%d\n",
-        	temp->index, temp->post, temp->cost_a, temp->target_pos, temp->cost_b);*/
-		temp = temp->next;
-	}
-}
-void	sort_b(t_stack **st_b)
-{
-	int		len;
-	t_stack	*big;
-	t_stack	*temp;
-	int time;
-
-	len = count_len(st_b);
-	recount_post(st_b);
-	big = *st_b;
+	}	
 	
-	temp = *st_b;
-	//fprintf(stderr, "before sort_b: index=%dpost=%d len=%d\n", big->index,big->post, len);
-	while (temp)
+			
+		if(split[i][0] == '0')
+			i ++;
+		else
+		{
+			j = ft_atoi(split[i]);
+			printf("%d\n", j);
+			i ++;
+			if (j == 0)
+				return (write(2,"Error\n",6));
+		}
+	
+	//判断array or string
+	while (argv[1][i] == 32 && argv[1][i])
+		i ++;
+	while(argv[1][i] != 32 && argv[1][i])
+		i ++;
+	while (argv[1][i] == 32 && argv[1][i])
+		i ++;
+	if (argv[1][i] != 32 && argv[1][i])
+	{
+	dup = ft_split(argv[1], 32);
+	i = 0;
+	while(dup[i])
+	{
+		printf("%s\n",dup[i]);
+		i ++;
+	}
+	i = 0;
+	while(dup[i])
+	{
+		free(dup[i]);
+		i ++;
+	}
+	free(dup);
+}
+	//判断是否是数字
+	i = ft_atoi(argv[1]);
+	printf("%d", i);
+	//解析成字符串组
+	char **dup = ft_split(argv[1], 32);
+	测试是否有不可能转化成数字的字符串
+
+	
+	while(dup[i])
+	{
+		printf("%s\n",dup[i]);
+		i ++;
+	}
+	i = 0;
+	while(dup[i])
+	{
+		free(dup[i]);
+		i ++;
+	}
+	free(dup);
+	while (argv[1][i])
 	{
 		
-		if(temp->index > big->index)
-			big = temp;
-		temp = temp->next;
 	}
-	//fprintf(stderr, "After sort_b: index=%d post=%d len=%d\n", big->index,big->post,len);
-	if (big->post <= len / 2)
-	{
-		while (big->post > 0)
-		{
-			rotate_b(st_b);
-			big->post --;
-		}
-	}
-	else
-	{
-		 time= len - big->post;
-		while ( time-- > 0)
-		{
-			reverse_rotate_b(st_b);
-		}
-	}
-	//fprintf(stderr, "After sort_b: index=%d post=%d time=%d\n", big->index,big->post,time);
-}
-void	sort_a(t_stack **st_a)
-{
-	int		len;
-	t_stack	*least;
-	t_stack	*temp;
-	int time;
+	return (write(1,"yes!\n",5));*/
 
-	len = count_len(st_a);
-	recount_post(st_a);
-	least = *st_a;
-	
-	temp = *st_a;
-	//fprintf(stderr, "before sort_b: index=%dpost=%d len=%d\n", big->index,big->post, len);
-	while (temp)
-	{
-		if(temp->index < least->index)
-			least = temp;
-		temp = temp->next;
-	}
-	/*fprintf(stderr, "After sort_b: index=%d post=%d len=%d\n", big->index,big->post,len);*/
-	if (least->post <= len / 2)
-	{
-		while (least->post > 0)
-		{
-			rotate_a(st_a);
-			least->post --;
-		}
-	}
-	else
-	{
-		 time= len - least->post;
-		while ( time-- > 0)
-		{
-			reverse_rotate_a(st_a);
-		}
-	}
-	//fprintf(stderr, "After sort_b: index=%d post=%d time=%d\n", big->index,big->post,time);
-}
-void	recount_target_pos_a(t_stack **st_a, t_stack **st_b)
-{
-	t_stack	*temp;
-	t_stack	*target_b;
-	
-	temp = *st_a;
-	while (temp)
-	{
-		target_b = find_target_b(temp->index, st_b);
-		temp->target_pos = target_b->post;
-		temp = temp->next;
-	}
-	
-}
-void	recount_target_pos_b(t_stack **st_a, t_stack **st_b)
-{
-	t_stack	*temp;
-	t_stack	*target_a;
-	
-	temp = *st_b;
-	while (temp)
-	{
-		target_a = find_target_a(temp->index, st_a);
-		temp->target_pos = target_a->post;
-		temp = temp->next;
-	}
-	
-}
+/*测试转换	
+int a = push_b(&stack_a,&stack_b);
+	printf("--------PUSH----------------------\n");
+	ft_print_stack(stack_a);
+	ft_print_stack(stack_b);
+	a = push_b(&stack_a,&stack_b);
+	printf("---------PUSH---------------------\n");
+	ft_print_stack(stack_a);
+	ft_print_stack(stack_b);
+	printf("----------SWAP--------------------\n");
+	a = swap_ab(&stack_a,&stack_b);
+	ft_print_stack(stack_a);
+	ft_print_stack(stack_b);
+	printf("------------RR------------------\n");
+	int b = rotate_rr(&stack_a,&stack_b);
+	printf("------------------------------\n");
+	ft_print_stack(stack_a);
+	ft_print_stack(stack_b);
+	printf("-------------RRR-----------------\n");
+	b = reverse_rotate_ab(&stack_a,&stack_b);
+	printf("------------------------------\n");
+	ft_print_stack(stack_a);
+	ft_print_stack(stack_b);
+	printf("------------------------------\n");
+	printf("%d%d\n",a,b);*/
 
-/*void	push_swap_a(t_stack **st_a, t_stack **st_b)
+	/*打印 一
+	void ft_print_stack(t_stack *stack)
 {
-	t_stack	*node;
+	t_stack *temp;
 
-	while (*st_b)
-	{
-		recount_post(st_a);
-		recount_post(st_b);
-		recount_target_pos_b(st_a, st_b);
-		recount_cost(st_a, st_b);
-		node = find_best_node(st_b, st_a);
-		print_ab(st_a, st_b, node);
-		if(*st_b)
-			push_a(st_a, st_b);
-	}
-	sort_a(st_a);
+	temp = stack;
+	if(!temp)
+		printf("null\n");
+	
 }*/
-
-void	push_swapformin(t_stack **st_a, t_stack **st_b)
-{
-	int	len_a;
-
-	len_a = count_len(st_a);
-	if(!*st_b && len_a == 1)
-		return	;
-	if (!*st_b && len_a == 2)
-	{
-		if ((*st_a)->index > (*st_a)->next->index)
-			swap_a(st_a);
-		else
-			return;
-	}
-	if (!*st_b && len_a == 3)
-	{
-		if ((*st_a)->index < (*st_a)->next->index)
-		{
-			if((*st_a)->next->index < (*st_a)->next->next->index)
-				return	;
-			else if ((*st_a)->index < (*st_a)->next->next->index)
-			{
-				reverse_rotate_a(st_a);
-				swap_a(st_a);
-			}
-			else
-				reverse_rotate_a(st_a);
-			
-		}
-		else
-		{
-			if((*st_a)->index < (*st_a)->next->next->index)
-				swap_a(st_a);
-			else if ((*st_a)->next->index < (*st_a)->next->next->index)
-				rotate_a(st_a);
-			else
-			{
-				rotate_a(st_a);
-				swap_a(st_a);
-			}
-		}
-	}	
-}
-void	recount_form_b_to_a(t_stack **st_a, t_stack **st_b)
-{
-	t_stack *node;
-
-	while (*st_b)
-	{
-		recount_post(st_a);
-		recount_post(st_b);
-		recount_target_pos_b(st_a, st_b);
-		recount_cost_b(st_a, st_b);
-		node = find_best_node_b(st_a, st_b);
-		push_b2a(st_a, st_b, node);
-		push_a(st_a,st_b);
-	}
-}
-
-void _5_number_in_stack_a(t_stack **st_a,t_stack **st_b)
-{
-	if ((*st_a)->index < (*st_a)->next->index)
-	{
-		if((*st_a)->next->index < (*st_a)->next->next->index)
-			recount_form_b_to_a(st_a, st_b);
-		else if ((*st_a)->index < (*st_a)->next->next->index)
-		{
-			reverse_rotate_a(st_a);
-			swap_a(st_a);
-			recount_form_b_to_a(st_a,st_b);
-		}
-		else
-		{
-			reverse_rotate_a(st_a);
-			recount_form_b_to_a(st_a,st_b);
-		}
-	}
-	else
-	{
-		if((*st_a)->index < (*st_a)->next->next->index)
-		{
-			swap_a(st_a);
-			recount_form_b_to_a(st_a,st_b);
-		}
-		else if ((*st_a)->next->index < (*st_a)->next->next->index)
-		{
-			rotate_a(st_a);
-			recount_form_b_to_a(st_a,st_b);
-		}
-		else
-		{
-			rotate_a(st_a);
-			swap_a(st_a);
-			recount_form_b_to_a(st_a,st_b);
-		}
-	}
-	sort_a(st_a);
-}
-	
-void	push_swap(t_stack **st_a, t_stack **st_b)
-{
-	t_stack	*node;
-
-	if(is_sort_stack(st_a))
-		return ;
-	push_b(st_a, st_b);
-	push_b(st_a, st_b);
-	if(count_len(st_a)==3)
-	{
-		_5_number_in_stack_a(st_a,st_b);
-		return ;
-	}
-	while (*st_a)
-	{
-		recount_post(st_a);
-		recount_post(st_b);
-		recount_target_pos_a(st_a, st_b);
-		recount_cost(st_a, st_b);
-		node = find_best_node(st_a, st_b);
-		print_ab(st_a, st_b, node);
-		if(!(*st_a))
-			break ;
-		push_b(st_a, st_b);	
-	}
-	sort_b(st_b);
-	while (*st_b)
-		push_a(st_a, st_b);	
-}
-
-/*sort_b(st_b);
-	while (*st_b)
-		push_a(st_a, st_b);*/

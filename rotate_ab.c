@@ -6,7 +6,7 @@
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:29:16 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/08 13:44:05 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/13 16:29:09 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,32 +22,33 @@ void	rotate(t_stack **stack)
 	stackadd_back(stack, node);
 	return ;
 }
-void	rotate_a(t_stack **stack_a)
+
+void	rotate_a(t_stack **a)
 {
-	if (!stack_a || !*stack_a || !(*stack_a)->next)
+	if (!a || !*a || !(*a)->next)
 		return ;
-	rotate(stack_a);
+	rotate(a);
 	write(1, "ra\n", 3);
-		return ;
+	return ;
 }
 
-void	rotate_b(t_stack **stack_b)
+void	rotate_b(t_stack **b)
 {
-	if (!stack_b || !*stack_b || !(*stack_b)->next)
+	if (!b || !*b || !(*b)->next)
 		return ;
-	rotate(stack_b);
+	rotate(b);
 	write(1, "rb\n", 3);
-		return ;
+	return ;
 }
 
-void	rotate_ab(t_stack **stack_a, t_stack **stack_b)
+void	rotate_ab(t_stack **a, t_stack **b)
 {
-	if (!stack_a || !*stack_a || !(*stack_a)->next)
+	if (!a || !*a || !(*a)->next)
 		return ;
-	if (!stack_b || !*stack_b || !(*stack_b)->next)
+	if (!b || !*b || !(*b)->next)
 		return ;
-	rotate(stack_a);
-	rotate(stack_b);
+	rotate(a);
+	rotate(b);
 	write(1, "rr\n", 3);
 	return ;
 }

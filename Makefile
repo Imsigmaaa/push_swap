@@ -6,34 +6,27 @@
 #    By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/19 16:00:15 by xingchen          #+#    #+#              #
-#    Updated: 2026/03/09 04:05:10 by xingchen         ###   ########.fr        #
+#    Updated: 2026/03/13 15:56:39 by xingchen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -Ilibft -Ift_printf 
+CFLAGS = -Wall -Werror -Wextra -Ilibft
 NAME = push_swap
-SRC = main.c ft_strcmp.c ft_atol.c ft_split_tokens.c count_len.c count_post.c find_best_node.c print_ab.c push_swap.c find_target_b.c sort_numbers.c ft_parsing.c change_to_list.c ft_free_arr.c push_ab.c stackadd_front.c stackadd_back.c stacklast.c stackswap.c swap_ab.c rotate_ab.c reverse_rotate_ab.c
+SRC = create_stack.c sort_stack.c find_best_node.c ft_atol.c ft_parsing.c ft_split_tokens.c push_ab.c push_swap.c reverse_rotate_ab.c rotate_ab.c rotate_moves.c set_cost.c set_position.c set_target.c sort_numbers.c sort_small_stack.c stack_utils.c swap_ab.c 
 OBJS = $(SRC:.c=.o)
-#LIBFT_DIR = libfts
 LIBFT_DIR = libft
 FT_PRINTF_DIR = ft_printf
 LIBFT = libft/libft.a
 FT_PRINTF = ft_printf/libftprintf.a
-#当执行make的时候 默认执行all all；依赖NAME
 all: $(NAME)
-#要生成NAME 要先生成OBJS
 $(NAME): $(OBJS)
-#生成NAME的方式 -C就是CD 进入到目录 MAKE是Makefile的内置变量指代当前使用的make命令
 	$(MAKE) -C $(LIBFT_DIR)
 	$(MAKE) -C $(FT_PRINTF_DIR)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(FT_PRINTF) -o $(NAME)
-#任何.o文件都可以用由同名文件.c编译得到
-#（$<）第一个依赖文件（.c）   （$@）目标文件（.o）
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 clean:
-#进入到自己的文件夹执行自己的clean
 	$(MAKE) -C $(LIBFT_DIR) clean
 	$(MAKE) -C $(FT_PRINTF_DIR) clean
 	rm -f $(OBJS)

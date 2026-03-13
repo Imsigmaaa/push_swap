@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_numbers.c                                     :+:      :+:    :+:   */
+/*   ft_sort_numbers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 20:39:39 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/05 21:06:51 by xingchen         ###   ########.fr       */
+/*   Updated: 2026/03/13 16:12:05 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_swap(int *a, int *b)
+static	void	ft_swap(int *a, int *b)
 {
 	int	swap;
 
@@ -21,7 +21,7 @@ void	ft_swap(int *a, int *b)
 	*b = swap;
 }
 
-int	calcul_len(char **arr)
+static	int	arr_len(char **arr)
 {
 	int	len;
 
@@ -31,22 +31,10 @@ int	calcul_len(char **arr)
 	return (len);
 }
 
-int	*sort_numbers(char **arr, int *str)
+static	void	sort_in_array(int *str, int len)
 {
-	int		i;
-	int		len;
+	int	i;
 
-	len = calcul_len(arr);
-	str = malloc(sizeof(int) * len);
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		str[i] = ft_atoi(arr[i]);
-		i ++;
-	}
-	
 	i = 0;
 	while (i < len - 1)
 	{
@@ -58,5 +46,24 @@ int	*sort_numbers(char **arr, int *str)
 		else
 			i ++;
 	}
+}
+
+int	*ft_sort_numbers(char **arr)
+{
+	int	i;
+	int	len;
+	int	*str;
+
+	len = arr_len(arr);
+	str = malloc(sizeof(int) * len);
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		str[i] = ft_atoi(arr[i]);
+		i ++;
+	}
+	sort_in_array(str, len);
 	return (str);
 }

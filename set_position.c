@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   set_position.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/06 20:23:50 by xingchen          #+#    #+#             */
-/*   Updated: 2026/03/06 20:24:36 by xingchen         ###   ########.fr       */
+/*   Created: 2026/03/09 22:18:43 by xingchen          #+#    #+#             */
+/*   Updated: 2026/03/10 01:20:03 by xingchen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_strcmp(char *s1, char *s2)
+void	set_position(t_stack **stack)
 {
-	size_t	i;
+	int		i;
+	t_stack	*new;
 
+	new = *stack;
 	i = 0;
-	while ((s1[i] && s2[i]))
+	while (new)
 	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
+		new->post = i;
 		i ++;
+		new = new->next;
 	}
-	return (s1[i] - s2[i]);
 }

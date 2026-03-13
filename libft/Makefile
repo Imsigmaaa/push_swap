@@ -6,11 +6,11 @@
 #    By: xingchen <xingchen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/11 14:50:30 by xingchen          #+#    #+#              #
-#    Updated: 2026/02/26 22:40:51 by xingchen         ###   ########.fr        #
+#    Updated: 2026/03/13 15:55:46 by xingchen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
 NAME = libft.a
 
