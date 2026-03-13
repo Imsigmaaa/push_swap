@@ -1,12 +1,11 @@
-
 *This project has been created as part of the 42 curriculum by xingchen*
 
 # Description
 
 Push_swap is an algorithm project: sort a stack of integers using a limited set of operations, with as few moves as possible.
-You have two stacks, `a` and `b`, and a set of operations to move elements between them. At the start, stack `a` holds a list of unique integers and stack `b` is empty. The goal is to sort a in ascending order.
+You have two stacks, `a` and `b`, and a set of operations to move elements between them. At the start, stack `a` contains a list of unique integers and stack `b` is empty. The goal is to sort `a` in ascending order.
 
-The project has two programs:
+The project implements on programs:
 
 - `push_swap`: calculates and prints each move to sort the stack in the most efficient way possible
 
@@ -21,7 +20,7 @@ make
 
 ### push_swap
 ```bash
-./push_swap 3 2 1 5 4
+./push_swap 1 2 4 3 5
 ```
 
 Prints the list of operations to sort the stack, one per line:
@@ -67,6 +66,23 @@ The program prints `Error` in the following cases:
 4. **Push back to a** — for each element in `b`, calculate the cheapest cost to insert it into its correct position in `a` (using `rr`/`rrr` to combine rotations when both stacks move in the same direction)
 5. **Final rotate** — rotate `a` to bring the smallest element to top
 
+# Benchmark
+
+According to the project subject, the program must sort stacks using a limited number of operations.
+
+## Maximum score (100%)
+
+- **100 random numbers → fewer than 700 operations**
+
+- **500 random numbers → fewer than 5500 operations**
+
+## Minimum validation (≈80%)
+
+- **100 numbers < 1100 operations and 500 numbers < 8500 operations**
+
+- **100 numbers < 700 operations and 500 numbers < 11500 operations**
+
+- **100 numbers < 1300 operations and 500 numbers < 5500 operations**
 
 # Resources
 
