@@ -84,11 +84,11 @@ int	main(int argc, char **argv)
 	if (!tokens)
 	{
 		write(2, "Error\n", 6);
-		return (ft_free_arr(tokens), 0);
+		return (0);
 	}
 	str = ft_sort_numbers(tokens);
 	if (!str)
-		return (stack_clear(&a), free(str), 0);
+		return (stack_clear(&a), 0);
 	a = create_stack(tokens, str);
 	if (!a)
 		return (stack_clear(&a), free(str), 0);
