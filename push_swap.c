@@ -57,8 +57,8 @@ int	is_all_space(char **args)
 	while (args[i])
 	{
 		j = 0;
-		while (args[i][j] && !ft_isdigit(args[i][j])
-			&& args[i][j] != '+' && args[i][j] != '-')
+		while (args[i][j] && (args[i][j] == ' ' 
+			|| (args[i][j] >= 9 && args[i][j] <= 13)))
 			j ++;
 		if (args[i][j] == '\0')
 			return (1);
