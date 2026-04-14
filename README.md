@@ -83,6 +83,31 @@ According to the project subject, the program must sort stacks using a limited n
 - **100 numbers < 700 operations and 500 numbers < 11500 operations**
 
 - **100 numbers < 1300 operations and 500 numbers < 5500 operations**
+# Testing Commands
+The following commands can be used to test the program during development and evaluation.
+## checker_linux
+```bash
+chmod 777 checker_linux
+```
+
+## Basic test
+```bash
+ARG="3 2 1"; ./push_swap $ARG | ./checker_linux $ARG
+```
+## Random test (100 numbers)
+```bash
+ARG=$(shuf -i 1-100 -n 100); ./push_swap $ARG | wc -l
+ARG=$(shuf -i 1-100 -n 100); ./push_swap $ARG | ./checker_linux $ARG
+```
+## Random test (500 numbers)
+```bash
+ARG=$(shuf -i 1-500 -n 500); ./push_swap $ARG | wc -l
+ARG=$(shuf -i 1-500 -n 500); ./push_swap $ARG | ./checker_linux $ARG
+```
+## Memory leaks (Valgrind)
+```bash
+valgrind --leak-check=full --show-leak-kinds=all ./push_swap 3 2 1
+```
 
 # Resources
 
