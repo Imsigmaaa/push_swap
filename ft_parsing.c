@@ -65,6 +65,8 @@ static	int	is_number(char **tokens)
 	int		j;
 
 	i = 0;
+	if(!tokens || !tokens[0])
+		return (0);
 	while (tokens[i])
 	{
 		j = 0;
