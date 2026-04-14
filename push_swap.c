@@ -46,6 +46,27 @@ int	is_sort_stack(t_stack **stack)
 	return (1);
 }
 
+int	is_all_space(char **args)
+{
+	int	i;
+	int	j;
+
+	if (!args || !args[0])
+		return (1);
+	i = 0;
+	while (args[i])
+	{
+		j = 0;
+		while (args[i][j] && !ft_isdigit(args[i][j])
+			&& args[i][j] != '+' && args[i][j] != '-')
+			j ++;
+		if (args[i][j] == '\0')
+			return (1);
+		i ++;
+	}
+	return (0);
+}
+
 void	push_swap(t_stack **a, t_stack **b)
 {
 	t_stack	*node;
@@ -80,12 +101,11 @@ int	main(int argc, char **argv)
 	b = NULL;
 	if (argc == 1)
 		return (0);
+	if (is_all_space(argv))
+		return (write(2, "Error\n", 6), 0);
 	tokens = ft_parsing(argc, argv);
 	if (!tokens)
-	{
-		write(2, "Error\n", 6);
-		return (0);
-	}
+		return (write(2, "Error\n", 6), 0);
 	str = ft_sort_numbers(tokens);
 	if (!str)
 		return (stack_clear(&a), 0);
