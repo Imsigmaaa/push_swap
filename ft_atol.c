@@ -28,6 +28,11 @@ long	ft_atol(char *nptr)
 			sign = -1;
 	while ('0' <= nptr[i] && nptr[i] <= '9')
 	{
+		if(result > 214748364)
+		{
+			result = 2147483649;
+			break ;
+		}
 		result = result * 10 + (nptr[i] - '0');
 		i ++;
 	}
